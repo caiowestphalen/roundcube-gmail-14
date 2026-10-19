@@ -1,0 +1,20 @@
+/* roundcube-gmail — main stylesheet entry (Tailwind CSS v4, CSS-first config).
+   Layer order: rc-compat (plugin-inherited class contract) < theme < base < components < utilities.
+   Preflight is intentionally NOT imported: Roundcube core + plugins render markup we do not own. */
+@layer rc-compat, theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities) source(none);
+
+/* Only our own files are scanned for utility classes. */
+@source '../../skin/templates/**/*.html';
+@source '../js/**/*.js';
+
+@import './tokens.css';
+@import './variants.css';
+@import './generated/fonts.css';
+@import './generated/icons.css';
+@import './base.css';
+@import './rc-compat/index.css';
+@import './components/index.css';
+@import './plugin-overrides.css';

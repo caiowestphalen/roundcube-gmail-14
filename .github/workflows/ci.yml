@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - name: Skin invariants
+        run: |
+          set -e
+          for f in styles print embed; do
+            test -s "skin/styles/$f.css" && test -s "skin/styles/$f.min.css"
+          done
+          test -s skin/ui.js && test -s skin/ui.min.js
+          test -s skin/fonts/icons.woff2
+          node -e "const m=require('./skin/meta.json'); if (m.extends!=='elastic') { console.error('meta.json must extend elastic'); process.exit(1) }"
+          test -f skin/plugins/jqueryui/jquery-ui.css
+          # zero third-party UI code may ship
+          ! test -d skin/deps
+          ! grep -rqiE 'bootstrap|popper|jquery-ui' skin/templates skin/ui.js
+          # no jQuery in our own bundle (core still loads it; we never call it)
+          ! grep -qE '(^|[^A-Za-z0-9_$])(jQuery|\$)\(' skin/ui.js
+      - name: Size budget
+        run: |
+          sz=$(gzip -c skin/styles/styles.min.css | wc -c); echo "styles.min.css gz=$sz"; test "$sz" -lt 65536
+          sz=$(gzip -c skin/ui.min.js | wc -c); echo "ui.min.js gz=$sz"; test "$sz" -lt 65536
+      - uses: actions/upload-artifact@v4
+        with:
+          name: skin
+          path: skin/
+
+  upstream-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify the Roundcube core contracts this skin relies on
+        run: |
+          git clone --depth=1 -b ${RC_VERSION:-1.7.4} https://github.com/roundcube/roundcubemail /tmp/rc
+          bash tools/check-core-contracts.sh /tmp/rc

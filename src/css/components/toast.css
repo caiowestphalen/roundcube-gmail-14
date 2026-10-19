@@ -1,0 +1,131 @@
+/* Snackbars: bottom-left, inverse surface, 52px, action text in inverse-primary. */
+@layer components {
+  #messagestack,
+  .gm-toasts {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    max-width: min(560px, calc(100vw - 48px));
+    pointer-events: none;
+  }
+
+  #messagestack > div,
+  .gm-toast {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: max-content;
+    max-width: 100%;
+    min-width: 280px;
+    min-height: 48px;
+    padding: 12px 8px 12px 24px;
+    border-radius: var(--radius-sm);
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-on-surface);
+    font: 400 var(--text-base) / 20px var(--font-sans);
+    box-shadow: var(--shadow-fab-hover);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 150ms var(--ease-standard),
+      transform 150ms var(--ease-standard);
+  }
+
+  #messagestack > div.gm-visible,
+  .gm-toast.gm-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .gm-toast.gm-leaving {
+    opacity: 0;
+  }
+
+  #messagestack > div.error,
+  .gm-toast.error {
+    background: var(--color-error-container);
+    color: var(--color-on-error-container);
+  }
+
+  #messagestack > div.warning,
+  .gm-toast.warning {
+    background: #f9e6b8;
+    color: #4a3800;
+  }
+
+  #messagestack > div.confirmation::before,
+  .gm-toast.confirmation::before,
+  #messagestack > div.error::before,
+  .gm-toast.error::before {
+    font-family: var(--font-icons);
+    font-size: 20px;
+    line-height: 1;
+    content: var(--ico-check-circle);
+  }
+
+  #messagestack > div.error::before,
+  .gm-toast.error::before {
+    content: var(--ico-error);
+  }
+
+  .gm-toast-text,
+  #messagestack > div > .content {
+    flex: 1 1 auto;
+  }
+
+  .gm-toast-action {
+    color: var(--color-inverse-primary);
+    font-weight: 500;
+    padding: 0 8px;
+    border-radius: var(--radius-xs);
+  }
+
+  .gm-toast-action:hover {
+    background: rgb(255 255 255 / 0.08);
+  }
+
+  .gm-toast-close {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: inherit;
+  }
+
+  .gm-toast-close:hover {
+    background: rgb(255 255 255 / 0.12);
+  }
+
+  .gm-spinner {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid currentcolor;
+    border-right-color: transparent;
+    animation: gm-spin 800ms linear infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes gm-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (width <= 600px) {
+    #messagestack,
+    .gm-toasts {
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      max-width: none;
+    }
+  }
+}

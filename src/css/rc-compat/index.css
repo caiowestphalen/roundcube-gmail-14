@@ -1,0 +1,17 @@
+/* rc-compat layer — the class contract that Roundcube core and plugin templates (inherited from
+   Elastic via meta.json "extends") hardcode: .propform, .formcontent, .listing, .popupmenu, .toolbar,
+   .header, .iframe-wrapper, .back-list-button, .task-menu-button, .pagenav, .btn, .btn-primary, .row …
+   Filled in per component; keep this layer lowest so our components can override it. */
+@layer rc-compat {
+  .hidden {
+    display: none !important;
+  }
+
+  .voice {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+}

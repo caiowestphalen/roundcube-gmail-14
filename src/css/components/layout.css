@@ -1,0 +1,329 @@
+/* App shell. Grid areas: header spans; left column = task nav (#layout-menu) stacked over the
+   folder/addressbook list (#layout-sidebar); then list + content. Dimensions: docs/DESIGN.md. */
+@layer components {
+  #layout {
+    display: grid;
+    height: 100%;
+    grid-template-rows: var(--spacing-header) auto minmax(0, 1fr);
+    grid-template-columns: var(--spacing-nav) minmax(320px, 2fr) minmax(0, 3fr);
+    grid-template-areas:
+      'header header header'
+      'menu list content'
+      'sidebar list content';
+    background: var(--color-surface-container-low);
+    transition: grid-template-columns 150ms var(--ease-standard);
+  }
+
+  /* Below 1025px, three useful columns no longer fit. */
+  @media (width > 1024px) {
+    html.nav-collapsed #layout {
+      grid-template-columns: var(--spacing-nav-rail) minmax(320px, 2fr) minmax(0, 3fr);
+    }
+
+    /* settings: same shell as mail — sections list lives in the nav column; pages without a
+       list column (password, vacation…) let the content span both card columns */
+    body.task-settings #layout:not(:has(> #layout-list)) {
+      grid-template-columns: var(--spacing-nav) minmax(0, 1fr);
+      grid-template-areas:
+        'header header'
+        'menu content'
+        'sidebar content';
+    }
+
+    html.nav-collapsed body.task-settings #layout:not(:has(> #layout-list)) {
+      grid-template-columns: var(--spacing-nav-rail) minmax(0, 1fr);
+    }
+
+    body.task-settings #layout:has(> #layout-list) {
+      grid-template-columns: var(--spacing-nav) minmax(280px, 1fr) minmax(0, 2fr);
+    }
+
+    html.nav-collapsed body.task-settings #layout:has(> #layout-list) {
+      grid-template-columns: var(--spacing-nav-rail) minmax(280px, 1fr) minmax(0, 2fr);
+    }
+
+    /* address book: names only in the list → narrow column, card gets the room */
+    body.task-addressbook #layout {
+      grid-template-columns: var(--spacing-nav) 360px minmax(0, 1fr);
+    }
+
+    html.nav-collapsed body.task-addressbook #layout {
+      grid-template-columns: var(--spacing-nav-rail) 360px minmax(0, 1fr);
+    }
+
+    /* hairline between the list pane and the content pane (mail, contacts, settings) */
+    #layout-list + #layout-content {
+      border-left: 1px solid var(--color-outline-variant);
+    }
+
+    /* a content header with nothing but an (empty) title is dead space on desktop */
+    #layout-content > .header:not(:has(.toolbar)):has(> .header-title:empty) {
+      display: none;
+    }
+
+    /* compose: no list; sidebar (options/attachments) is folded into the form, see compose.css */
+    body.task-mail.action-compose #layout {
+      grid-template-columns: var(--spacing-nav) minmax(0, 1fr);
+      grid-template-areas:
+        'header header'
+        'menu content'
+        'sidebar content';
+    }
+
+    html.nav-collapsed body.task-mail.action-compose #layout {
+      grid-template-columns: var(--spacing-nav-rail) minmax(0, 1fr);
+    }
+
+    /* full-page message view (action=show): content spans list+content columns */
+    body.task-mail.action-show #layout {
+      grid-template-columns: var(--spacing-nav) minmax(0, 1fr);
+      grid-template-areas:
+        'header header'
+        'menu content'
+        'sidebar content';
+    }
+
+    html.nav-collapsed body.task-mail.action-show #layout {
+      grid-template-columns: var(--spacing-nav-rail) minmax(0, 1fr);
+    }
+
+    body.task-mail.action-show #layout-content {
+      border-radius: var(--radius-lg);
+    }
+  }
+
+  /* external window (open in new window) / print: content only */
+  body.extwin #layout,
+  body.action-print #print-layout {
+    display: block;
+    height: 100%;
+  }
+
+  body.extwin #layout-content {
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  @media (width > 1024px) {
+    /* "list" layout (no split): content replaces the list */
+    body.layout-list #layout {
+      grid-template-columns: var(--spacing-nav) minmax(0, 1fr);
+      grid-template-areas:
+        'header header'
+        'menu list'
+        'sidebar list';
+    }
+
+    body.layout-list #layout-content {
+      grid-area: list;
+    }
+  }
+
+  #layout-header {
+    grid-area: header;
+  }
+
+  #layout-menu {
+    grid-area: menu;
+    min-width: 0;
+  }
+
+  #layout-sidebar {
+    grid-area: sidebar;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* list + content share one white rounded "card" like Gmail */
+  #layout-list {
+    grid-area: list;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  }
+
+  #layout-content {
+    grid-area: content;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-surface);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    margin-right: 16px;
+    margin-bottom: 0;
+  }
+
+  body.layout-list #layout-content,
+  body.task-settings #layout-content,
+  body.action-compose #layout-content {
+    border-radius: var(--radius-lg);
+  }
+
+  body.task-settings #layout:has(> #layout-list) #layout-content {
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  }
+
+  /* pages without navbar (login, error) */
+  #layout-content.no-navbar {
+    grid-area: 1 / 1 / -1 / -1;
+    background: transparent;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  /* generic panel chrome shared by sidebar/list/content */
+  .listbox > .header,
+  #layout-content > .header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: var(--spacing-toolbar);
+    padding: 4px 8px 4px 16px;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  #layout-content > .header > .toolbar {
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    flex-wrap: nowrap;
+  }
+
+  #layout-content > .header > .header-title:empty {
+    display: none;
+  }
+
+  .scroller {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .iframe-wrapper {
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
+    position: relative;
+  }
+
+  .iframe-wrapper > iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+    background: var(--color-surface);
+  }
+
+  /* Elastic responsive-visibility attributes honoured by plugins */
+  html.layout-phone [data-hidden~='phone'],
+  html.layout-small [data-hidden~='small'],
+  html.layout-normal [data-hidden~='normal'],
+  html.layout-large [data-hidden~='large'],
+  html.layout-phone [data-hidden~='lbs'],
+  html.layout-small [data-hidden~='lbs'],
+  html.layout-normal [data-hidden~='lbs'],
+  html:not(.layout-large):not(.layout-normal) [data-hidden~='big'] {
+    display: none !important;
+  }
+
+  /* panel switch buttons only exist on small screens */
+  .button.icon.back-list-button,
+  .button.icon.back-sidebar-button,
+  .button.icon.task-menu-button,
+  .button.icon.toolbar-menu-button {
+    display: none;
+  }
+
+  /* ---------- tablet / phone: one panel at a time ---------- */
+  @media (width <= 1024px) {
+    #layout,
+    html.nav-collapsed #layout,
+    body.task-settings #layout,
+    body.layout-list #layout {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: var(--spacing-header) minmax(0, 1fr);
+      grid-template-areas:
+        'header'
+        'main';
+    }
+
+    #layout-menu,
+    #layout-sidebar,
+    #layout-list,
+    #layout-content {
+      grid-area: main;
+      display: none;
+      margin: 0;
+      border-radius: 0;
+    }
+
+    #layout-sidebar.selected,
+    #layout-list.selected,
+    #layout-content.selected {
+      display: flex;
+    }
+
+    .listbox > .header > .toolbar,
+    #layout-content > .header > .toolbar {
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-wrap: nowrap;
+    }
+
+    .listbox > .header > .toolbar::-webkit-scrollbar,
+    #layout-content > .header > .toolbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* nav becomes a drawer */
+    #layout-menu {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: min(304px, 85vw);
+      z-index: 60;
+      background: var(--color-surface-container-low);
+      box-shadow: var(--shadow-menu);
+      transform: translateX(calc(-100% - 24px));
+      visibility: hidden;
+      transition: transform 200ms var(--ease-standard);
+    }
+
+    html.nav-open #layout-menu {
+      transform: none;
+      visibility: visible;
+    }
+
+    html.nav-open::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgb(0 0 0 / 0.4);
+      z-index: 59;
+    }
+
+    .button.icon.back-list-button,
+    .button.icon.back-sidebar-button,
+    .button.icon.task-menu-button {
+      display: inline-flex;
+    }
+  }
+}

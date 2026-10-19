@@ -1,0 +1,20 @@
+node_modules
+skin/styles/
+skin/ui.js
+skin/ui.min.js
+skin/fonts/*.woff2
+skin/images/icons.svg
+test-results/
+playwright-report/
+tests/__screenshots__/**/*-actual.png
+tests/__screenshots__/**/*-diff.png
+.DS_Store
+*.log
+.env
+
+# Local configuration, diagnostics and source maps are not release material.
+.env.*
+*.map
+/private/
+/docs/HANDBOOK.md
+/tests/accounts*.txt

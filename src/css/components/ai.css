@@ -1,0 +1,103 @@
+/* AI assistant (gm_core): summary card in the message view, result dialog in compose, menu glyphs */
+@layer components {
+  .gm-ai-card {
+    margin: 0 0 16px;
+    padding: 12px 16px 12px;
+    border-radius: var(--radius-md);
+    background: var(--color-surface-container-low);
+    border: 1px solid var(--color-outline-variant);
+  }
+
+  .gm-ai-card-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 var(--text-base) / 20px var(--font-sans);
+    color: var(--color-on-surface);
+    margin-bottom: 8px;
+  }
+
+  .gm-ai-card-head .ico-ai {
+    color: var(--color-primary);
+    font-size: 20px;
+  }
+
+  .gm-ai-card-close {
+    margin-left: auto;
+    width: 32px;
+    height: 32px;
+  }
+
+  .gm-ai-card-text,
+  .gm-ai-text {
+    white-space: pre-wrap;
+    font-size: var(--text-base);
+    line-height: 22px;
+    color: var(--color-on-surface);
+  }
+
+  .gm-ai-note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    font-size: var(--text-xs);
+    color: var(--color-on-surface-variant);
+  }
+
+  .gm-ai-result {
+    padding: 4px 0;
+  }
+
+  /* result dialog sizes to its text (the -lg preset fixes a height for framed content) */
+  .gm-dialog.gm-ai-dialog {
+    width: min(720px, 100%);
+    height: auto;
+    max-height: min(80vh, 720px);
+  }
+
+  .header-links a.ai-summarize::before {
+    content: var(--ico-ai);
+    color: var(--color-primary);
+  }
+
+  #ai-menu .menu > li > a::before {
+    content: var(--ico-ai);
+    color: var(--color-primary);
+  }
+
+  #ai-menu .menu > li > a.ai-fix::before {
+    content: var(--ico-spellcheck);
+  }
+  #ai-menu .menu > li > a.ai-translate::before {
+    content: var(--ico-translate);
+  }
+  #ai-menu .menu > li > a.ai-shorten::before {
+    content: var(--ico-density-small);
+  }
+  #ai-menu .menu > li > a.ai-expand::before {
+    content: var(--ico-density-medium);
+  }
+  #ai-menu .menu > li > a.ai-reply::before {
+    content: var(--ico-reply);
+  }
+  #ai-menu .menu > li > a.ai-write::before {
+    content: var(--ico-compose);
+  }
+
+  /* launcher tiles added from gm_apps */
+  .gm-apps-menu .menu.listing > li > a.gm-app-ext::before {
+    content: none;
+  }
+
+  .gm-apps-menu .menu.listing > li > a.gm-app-ext > .ico {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    font-size: 28px;
+    color: var(--gm-app-color, var(--color-on-surface-variant));
+    background: var(--color-surface-container-highest);
+  }
+}

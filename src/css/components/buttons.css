@@ -1,0 +1,339 @@
+/* Buttons: Material 3 shapes with Gmail's measurements. Also restyles Roundcube/Elastic button
+   markup (a.button.icon, .btn, .btn-primary, toolbar links) so core + plugin templates match. */
+@layer components {
+  /* ---- icon button (40×40 circle, 20/24px glyph) ---- */
+  .gm-icon-btn,
+  .button.icon,
+  .toolbar > a,
+  .toolbar .dropbutton > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--spacing-icon-btn);
+    height: var(--spacing-icon-btn);
+    flex-shrink: 0;
+    border-radius: 50%;
+    color: var(--color-on-surface-variant);
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 120ms var(--ease-standard);
+    user-select: none;
+  }
+
+  .gm-icon-btn:hover,
+  .button.icon:hover,
+  .toolbar > a:hover,
+  .toolbar .dropbutton > a:hover {
+    background: var(--color-state-hover);
+    text-decoration: none;
+  }
+
+  .gm-icon-btn:active,
+  .button.icon:active,
+  .toolbar > a:active,
+  .gm-icon-btn.gm-active,
+  .toolbar > a.gm-active {
+    background: var(--color-state-pressed);
+  }
+
+  .gm-icon-btn.selected,
+  .toolbar > a.selected,
+  .button.icon.selected {
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+  }
+
+  .gm-icon-btn-lg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .gm-icon-btn .ico,
+  .button.icon .ico {
+    font-size: var(--spacing-icon-lg);
+  }
+
+  /* Elastic puts the label in span.inner — keep for a11y, hide visually in icon buttons */
+  .button.icon > .inner,
+  .toolbar > a > .inner,
+  .toolbar .dropbutton > a > .inner {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .toolbar > a.disabled,
+  .button.icon.disabled,
+  .menu a.disabled,
+  .gm-btn:disabled,
+  .gm-icon-btn.disabled {
+    opacity: 0.38;
+    pointer-events: none;
+  }
+
+  .toolbar > a.hidden {
+    display: none;
+  }
+
+  /* ---- text / filled / outlined / tonal buttons (36px, pill) ---- */
+  .gm-btn,
+  .btn,
+  button.btn,
+  .formbuttons button,
+  .formbuttons input[type='button'],
+  .formbuttons input[type='submit'],
+  input.button,
+  button.button:not(.icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: var(--radius-pill);
+    font: 500 var(--text-base) / 20px var(--font-sans);
+    letter-spacing: 0.1px;
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid transparent;
+    color: var(--color-primary);
+    background: transparent;
+    transition:
+      background-color 120ms var(--ease-standard),
+      box-shadow 120ms var(--ease-standard);
+  }
+
+  .gm-btn:hover,
+  .btn:hover {
+    background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+    text-decoration: none;
+  }
+
+  .gm-btn-filled,
+  .btn-primary,
+  .formbuttons .btn-primary,
+  .formbuttons button.mainaction,
+  input.button.mainaction,
+  button.mainaction {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    padding: 0 24px;
+  }
+
+  .gm-btn-filled:hover,
+  .btn-primary:hover,
+  button.mainaction:hover {
+    background: color-mix(in srgb, var(--color-primary) 92%, var(--color-on-surface));
+    box-shadow: var(--shadow-fab);
+  }
+
+  .gm-btn-tonal {
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+  }
+
+  .gm-btn-tonal:hover {
+    background: color-mix(
+      in srgb,
+      var(--color-secondary-container) 92%,
+      var(--color-on-secondary-container)
+    );
+  }
+
+  .gm-btn-outlined,
+  .btn-secondary,
+  .btn-light,
+  .btn-default,
+  .formbuttons
+    button:not(.btn-primary):not(.mainaction):not(.btn-danger):not(.btn-secondary):not(
+      .gm-btn-filled
+    ):not(.gm-btn-tonal):not(.gm-btn-text) {
+    border-color: var(--color-outline);
+    color: var(--color-primary);
+  }
+
+  .gm-btn-danger,
+  .btn-danger {
+    color: var(--color-error);
+  }
+
+  .gm-btn-danger.gm-btn-filled,
+  .btn-danger.btn-primary {
+    background: var(--color-error);
+    color: var(--color-on-error);
+  }
+
+  .gm-btn .ico,
+  .btn .ico {
+    font-size: 18px;
+    margin-left: -4px;
+  }
+
+  /* Elastic-style .btn.icon.search etc. — glyph via ::before */
+  .btn.icon::before {
+    font-family: var(--font-icons);
+    font-size: 18px;
+    line-height: 1;
+    content: var(--ico-more-horiz);
+  }
+
+  .btn.icon.search::before {
+    content: var(--ico-search);
+  }
+  .btn.icon.send::before {
+    content: var(--ico-send);
+  }
+  .btn.icon.save::before {
+    content: var(--ico-save);
+  }
+  .btn.icon.cancel::before {
+    content: var(--ico-close);
+  }
+  .btn.icon.delete::before {
+    content: var(--ico-delete);
+  }
+  .btn.icon.create::before,
+  .btn.icon.add::before {
+    content: var(--ico-add);
+  }
+  .btn.icon.edit::before {
+    content: var(--ico-edit);
+  }
+  .btn.icon.import::before,
+  .btn.icon.upload::before {
+    content: var(--ico-upload);
+  }
+  .btn.icon.export::before,
+  .btn.icon.download::before {
+    content: var(--ico-download);
+  }
+
+  /* the big Compose pill (Gmail: 142×56 r16, white surface + shadow) */
+  .gm-compose {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    height: 56px;
+    padding: 0 24px 0 16px;
+    margin: 8px 8px 16px;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    color: var(--color-on-surface);
+    font: 500 var(--text-base) / 20px var(--font-sans);
+    text-decoration: none;
+    box-shadow: var(--shadow-fab);
+    transition:
+      box-shadow 150ms var(--ease-standard),
+      background-color 150ms var(--ease-standard);
+    white-space: nowrap;
+  }
+
+  .gm-compose:hover {
+    box-shadow: var(--shadow-fab-hover);
+    background: var(--color-surface-container-low);
+    text-decoration: none;
+  }
+
+  .gm-compose .ico {
+    font-size: 24px;
+  }
+
+  html.nav-collapsed .gm-compose {
+    width: 56px;
+    padding: 0;
+    justify-content: center;
+    gap: 0;
+  }
+
+  html.nav-collapsed .gm-compose-label {
+    display: none;
+  }
+
+  /* dropbutton = main action + caret */
+  .toolbar .dropbutton {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .toolbar .dropbutton > a.dropdown {
+    width: 32px;
+    height: 32px;
+    margin-left: -10px;
+  }
+
+  .toolbar .dropbutton > a.dropdown::before {
+    content: var(--ico-arrow-drop-down);
+  }
+
+  .toolbar .spacer {
+    width: 1px;
+    height: 24px;
+    margin: 0 8px;
+    background: var(--color-outline-variant);
+    flex-shrink: 0;
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+  }
+}
+
+@layer components {
+  /* compose pill glyph via ::before (core renders <a class="gm-compose"><span class="gm-compose-label">) */
+  .gm-compose::before {
+    font-family: var(--font-icons);
+    font-size: 24px;
+    line-height: 1;
+    content: var(--ico-compose);
+  }
+
+  body.task-addressbook .gm-compose::before {
+    content: var(--ico-person-add);
+  }
+}
+
+/* phone FAB (fab.js): mirrors the content toolbar's create action inside the list panel */
+@layer components {
+  .gm-fab {
+    display: none;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    z-index: 30;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    box-shadow: var(--shadow-fab);
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .gm-fab .ico {
+    font-size: 24px;
+  }
+
+  .gm-fab.disabled {
+    display: none;
+  }
+
+  @media (width <= 1024px) {
+    #layout-list {
+      position: relative;
+    }
+
+    .gm-fab:not(.disabled) {
+      display: inline-flex;
+    }
+  }
+}

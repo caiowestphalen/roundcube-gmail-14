@@ -1,0 +1,50 @@
+{
+  "name": "roundcube-ultimate-gmail-theme",
+  "version": "0.1.0",
+  "description": "Gmail-like skin for Roundcube Webmail 1.7+ — Tailwind CSS v4, zero UI dependencies, light/dark, desktop + mobile.",
+  "private": true,
+  "type": "module",
+  "license": "CC-BY-SA-3.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "clean": "node tools/clean.mjs",
+    "fonts": "node tools/build-fonts.mjs",
+    "icons": "node tools/build-icons.mjs",
+    "css:styles": "tailwindcss -i src/css/styles.css -o skin/styles/styles.css",
+    "css:print": "tailwindcss -i src/css/print.css -o skin/styles/print.css",
+    "css:embed": "tailwindcss -i src/css/embed.css -o skin/styles/embed.css",
+    "css": "npm-run-all -p css:styles css:print css:embed",
+    "css:min": "node tools/build-min.mjs",
+    "js": "node tools/build-js.mjs",
+    "build": "npm-run-all -s clean fonts icons js css css:min",
+    "dev": "npm-run-all -p \"css:styles -- --watch\" \"js -- --watch\"",
+    "lint:js": "eslint .",
+    "lint:css": "stylelint \"src/css/**/*.css\"",
+    "lint:format": "prettier --check .",
+    "lint": "npm-run-all -s lint:js lint:css lint:format",
+    "format": "prettier --write .",
+    "test": "node tests/probe-refine.mjs",
+    "deploy": "bash tools/deploy.sh",
+    "check": "npm-run-all -s lint build",
+    "pwa": "node tools/build-pwa.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@fontsource-variable/roboto-flex": "^5.3.0",
+    "@playwright/test": "^1.63.0",
+    "@tailwindcss/cli": "^4.3.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0",
+    "material-symbols": "^0.47.2",
+    "npm-run-all2": "^9.0.3",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "stylelint": "^7.7.0",
+    "stylelint-config-standard": "^15.0.1",
+    "subset-font": "^2.7.0",
+    "tailwindcss": "^4.3.3"
+  }
+}

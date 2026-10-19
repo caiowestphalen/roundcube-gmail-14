@@ -1,0 +1,214 @@
+/* Popup menus (.popupmenu opened by popup.js) — white, r4, 6px vertical padding, items 32px with
+   a 20px glyph at 16px and text at 48px; hover state layer; dividers. */
+@layer components {
+  .popupmenu,
+  .gm-menu {
+    display: none;
+    position: fixed;
+    z-index: 900;
+    min-width: 200px;
+    max-width: min(420px, calc(100vw - 16px));
+    max-height: calc(100vh - 16px);
+    overflow: auto;
+    padding: 6px 0;
+    border-radius: var(--radius-xs);
+    background: var(--color-surface-container-lowest);
+    color: var(--color-on-surface);
+    box-shadow: var(--shadow-menu);
+  }
+
+  html.dark-mode .popupmenu,
+  html.dark-mode .gm-menu {
+    background: var(--color-surface-container-high);
+  }
+
+  .popupmenu.gm-open,
+  .gm-menu.gm-open {
+    display: block;
+    animation: gm-menu-in 120ms var(--ease-standard);
+  }
+
+  @keyframes gm-menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .popupmenu > h3.voice {
+    position: absolute;
+  }
+
+  .popupmenu .menu,
+  .menu.listing {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .popupmenu .menu > li > a,
+  .menu.listing > li > a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 32px;
+    padding: 0 24px 0 16px;
+    color: var(--color-on-surface);
+    font: 400 var(--text-base) / 20px var(--font-sans);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .popupmenu .menu > li > a:hover,
+  .popupmenu .menu > li > a:focus,
+  .menu.listing > li > a:hover,
+  .menu.listing > li > a:focus {
+    background: var(--color-state-hover);
+    text-decoration: none;
+    outline: none;
+  }
+
+  .popupmenu .menu > li > a.selected,
+  .menu.listing > li > a.selected {
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+  }
+
+  .popupmenu .menu > li > a::before,
+  .menu.listing > li > a::before {
+    color: var(--color-on-surface-variant);
+  }
+
+  .popupmenu .menu > li > a.disabled {
+    opacity: 0.38;
+    pointer-events: none;
+  }
+
+  .popupmenu .menu > li.separator,
+  .popupmenu hr {
+    height: 1px;
+    margin: 6px 0;
+    padding: 0;
+    background: var(--color-outline-variant);
+    border: 0;
+  }
+
+  /* submenu indicator (folder selector etc.) */
+  .popupmenu .menu > li > a[aria-haspopup='true']::after,
+  .popupmenu .menu > li > a.folder-selector-link::after {
+    content: var(--ico-chevron-right);
+    font-family: var(--font-icons);
+    font-size: 20px;
+    margin-left: auto;
+    color: var(--color-on-surface-variant);
+  }
+
+  /* form-style popups (list options) */
+  .popupmenu.propform {
+    padding: 16px;
+    min-width: 320px;
+  }
+
+  .popupmenu.formcontent {
+    padding: 16px;
+  }
+
+  /* folder selector rendered by core (rcmail.folder_selector) */
+  #folder-selector.popupmenu,
+  .folder-selector {
+    max-height: 60vh;
+  }
+
+  #folder-selector .menu > li > a,
+  .folder-selector .menu > li > a {
+    padding: 0 24px 0 calc(16px + var(--gm-folder-depth, 0) * 16px);
+    min-height: 40px;
+    gap: 12px;
+  }
+
+  #folder-selector .menu > li > a::before {
+    content: var(--ico-folder);
+  }
+
+  #folder-selector .menu > li.inbox > a::before {
+    content: var(--ico-inbox);
+  }
+  #folder-selector .menu > li.drafts > a::before {
+    content: var(--ico-drafts);
+  }
+  #folder-selector .menu > li.sent > a::before {
+    content: var(--ico-send);
+  }
+  #folder-selector .menu > li.junk > a::before {
+    content: var(--ico-spam);
+  }
+  #folder-selector .menu > li.trash > a::before {
+    content: var(--ico-delete);
+  }
+}
+
+/* section labels + nested lists inside popup menus (responses menu, plugin menus) */
+@layer components {
+  .popupmenu .menu > li.separator {
+    height: auto;
+    margin: 6px 0 2px;
+    padding: 6px 16px 2px;
+    background: none;
+    border-top: 1px solid var(--color-outline-variant);
+  }
+
+  .popupmenu .menu > li.separator:first-child {
+    border-top: 0;
+    margin-top: 0;
+  }
+
+  .popupmenu .menu > li.separator > label {
+    display: block;
+    font: 500 var(--text-xs) / 16px var(--font-sans);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-on-surface-variant);
+    cursor: default;
+  }
+
+  .popupmenu .menu ul.menu,
+  .popupmenu .menu > ul,
+  #responseslist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .popupmenu .menu > ul > li > a,
+  #responseslist > li > a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 32px;
+    padding: 0 24px 0 48px;
+    color: var(--color-on-surface);
+    font: 400 var(--text-base) / 20px var(--font-sans);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .popupmenu .menu > ul > li > a:hover,
+  #responseslist > li > a:hover {
+    background: var(--color-state-hover);
+  }
+
+  .popupmenu .menu > ul > li.no-items,
+  #responseslist > li.no-items,
+  .popupmenu li.placeholder {
+    padding: 4px 24px 8px 48px;
+    color: var(--color-on-surface-variant);
+    font-size: var(--text-sm);
+  }
+}

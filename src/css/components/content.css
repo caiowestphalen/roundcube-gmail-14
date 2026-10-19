@@ -1,0 +1,759 @@
+/* Content panel: toolbar row + iframe (mail preview) and framed message pages (message.html). */
+@layer components {
+  #layout-content > .header {
+    padding-left: 12px;
+  }
+
+  #layout-content > .header .toolbar {
+    flex: 1 1 auto;
+  }
+
+  #layout-content > .header .header-title:empty {
+    display: none;
+  }
+
+  /* ---- framed pages (html.iframe): message view, settings forms, contacts ---- */
+  html.iframe {
+    background: var(--color-surface);
+  }
+
+  html.iframe body {
+    background: var(--color-surface);
+    height: auto;
+    min-height: 100%;
+    overflow: auto;
+  }
+
+  html.iframe #layout-content,
+  html.iframe .content.frame-content {
+    display: block;
+    min-height: 100%;
+  }
+
+  #layout-content > .content.frame-content,
+  html.iframe .content.frame-content {
+    padding: 0 24px 24px;
+  }
+
+  /* message header */
+  #message-header {
+    padding: 20px 0 8px 56px;
+  }
+
+  #message-header h2.subject {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font: 400 var(--text-xl) / 28px var(--font-sans);
+    color: var(--color-on-surface);
+    margin: 0 0 16px;
+    overflow-wrap: anywhere;
+  }
+
+  #message-header h2.subject a.extwin {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    margin-left: auto;
+    border-radius: 50%;
+    color: var(--color-on-surface-variant);
+    font-size: 0;
+    flex-shrink: 0;
+  }
+
+  #message-header h2.subject a.extwin::before {
+    font-family: var(--font-icons);
+    font-size: 20px;
+    content: var(--ico-open-in-new);
+  }
+
+  #message-header h2.subject a.extwin:hover {
+    background: var(--color-state-hover);
+  }
+
+  #message-header h2.subject img.lock_icon,
+  #message-header h2.subject img {
+    height: 16px;
+    width: auto;
+    margin-left: 4px;
+  }
+
+  .header-summary > span {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+    color: var(--color-meta);
+    font-size: var(--text-xs);
+  }
+
+  .header-summary .adr {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .header-summary .adr .rcmContactAddress {
+    font-size: var(--text-base);
+    color: var(--color-on-surface);
+    font-weight: 700;
+  }
+
+  a.rcmaddcontact {
+    display: inline-grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    margin-left: 2px;
+    border-radius: 50%;
+    vertical-align: middle;
+    color: var(--color-on-surface-variant);
+    font-size: 0;
+    text-decoration: none;
+    opacity: 0.72; /* always discoverable; full strength on hover of the line */
+    transition:
+      opacity 120ms var(--ease-standard),
+      background-color 120ms var(--ease-standard);
+  }
+
+  a.rcmaddcontact:hover {
+    text-decoration: none;
+    background: var(--color-state-hover);
+    color: var(--color-on-surface);
+  }
+
+  .header-headers .adr,
+  .gm-msg-line1 .adr {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .header-summary:hover a.rcmaddcontact,
+  .header-headers tr:hover a.rcmaddcontact {
+    opacity: 1;
+  }
+
+  a.rcmaddcontact::before {
+    font-family: var(--font-icons);
+    font-size: 16px;
+    content: var(--ico-person-add);
+  }
+
+  img.authres-status-img {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+  }
+
+  #message-header > .header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-left: -56px;
+  }
+
+  #message-header .contactphoto {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--color-surface-container-high);
+  }
+
+  #message-header .header-content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .header-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 8px;
+    font-size: var(--text-base);
+    line-height: 20px;
+  }
+
+  .header-summary .adr .rcmContactAddress,
+  .header-summary .adr > a,
+  .header-summary .adr > span {
+    color: var(--color-on-surface);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .header-summary .adr .rcmContactAddress::after,
+  .header-summary .date {
+    color: var(--color-meta);
+    font-weight: 400;
+    font-size: var(--text-xs);
+  }
+
+  .header-summary .date {
+    margin-left: auto;
+  }
+
+  .header-headers {
+    display: none;
+    margin-top: 8px;
+    font-size: var(--text-sm);
+    color: var(--color-on-surface-variant);
+  }
+
+  .header-headers.details {
+    display: block;
+  }
+
+  .header-headers table,
+  table.headers-table {
+    border-collapse: collapse;
+  }
+
+  .header-headers th,
+  table.headers-table th,
+  .header-headers td.header-title {
+    padding: 2px 12px 2px 0;
+    text-align: left;
+    font-weight: 400;
+    color: var(--color-on-surface-variant);
+    white-space: nowrap;
+    vertical-align: top;
+  }
+
+  .header-headers td,
+  table.headers-table td {
+    padding: 2px 0;
+    color: var(--color-on-surface);
+    overflow-wrap: anywhere;
+  }
+
+  .header-links {
+    display: flex;
+    gap: 4px 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 4px;
+    font-size: var(--text-xs);
+    color: var(--color-meta);
+  }
+
+  .header-links a {
+    color: var(--color-meta);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 28px;
+    text-decoration: none;
+    border-radius: 14px;
+    padding: 0 12px 0 10px;
+    margin-left: -10px;
+    font-size: var(--text-xs);
+  }
+
+  .header-links a + a {
+    margin-left: 0;
+  }
+
+  .header-links a::before {
+    font-family: var(--font-icons);
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .header-links a.headers-all::before {
+    content: var(--ico-description);
+  }
+
+  .header-links a.plain::before,
+  .header-links a.html::before,
+  .header-links a[class*='format']::before,
+  .header-links a[onclick*='change_format']::before {
+    content: var(--ico-code);
+  }
+
+  .header-links a:hover {
+    background: var(--color-state-hover);
+    text-decoration: none;
+    color: var(--color-on-surface);
+  }
+
+  .header-links a.headers-summary {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .header-links a.headers-summary::after {
+    content: var(--ico-arrow-drop-down);
+    font-family: var(--font-icons);
+    font-size: 20px;
+    transition: transform 150ms var(--ease-standard);
+  }
+
+  .header-links a.headers-summary.expanded::after {
+    transform: rotate(180deg);
+  }
+
+  .gm-authres {
+    font-size: 16px;
+    vertical-align: middle;
+    margin-right: 2px;
+    color: var(--color-outline);
+  }
+
+  /* no authentication result: Gmail shows nothing on the sender line (details table keeps it) */
+  .gm-msg-summary .gm-authres[data-state='none'].ico-help {
+    display: none;
+  }
+
+  .gm-authres[data-state='ok'] {
+    color: #1e8e3e;
+  }
+
+  .gm-authres[data-state='partial'],
+  .gm-authres[data-state='warn'] {
+    color: #b06000;
+  }
+
+  .gm-authres[data-state='fail'] {
+    color: var(--color-error);
+  }
+
+  .header-links .button.icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* message body */
+  #message-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-left: 56px;
+  }
+
+  #message-content .rightcol {
+    min-width: 0;
+  }
+
+  #messagebody {
+    font-size: var(--text-base);
+    line-height: 1.5;
+    color: var(--color-on-surface);
+    overflow-wrap: anywhere;
+  }
+
+  #messagebody div.message-part,
+  #messagebody div.message-htmlpart {
+    margin: 8px 0 16px;
+  }
+
+  #messagebody div.message-part {
+    white-space: pre-wrap;
+    font-family: var(--font-sans);
+  }
+
+  #messagebody blockquote {
+    margin: 4px 0 4px 4px;
+    padding-left: 12px;
+    border-left: 2px solid var(--color-outline-variant);
+    color: var(--color-on-surface-variant);
+  }
+
+  #messagebody .message-partheaders,
+  #messagebody .part-notice,
+  #message-objects > div {
+    margin: 8px 0;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-container);
+    color: var(--color-on-surface-variant);
+    font-size: var(--text-sm);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  #message-objects .notice::before,
+  #message-objects .warning::before {
+    content: var(--ico-info);
+    font-family: var(--font-icons);
+    font-size: 20px;
+    color: var(--color-primary);
+  }
+
+  /* attachments list (Gmail chips) */
+  #attachment-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #attachment-list:empty {
+    display: none;
+  }
+
+  #attachment-list > li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 320px;
+    height: 36px;
+    padding: 0 4px 0 12px;
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    font-size: var(--text-sm);
+  }
+
+  #attachment-list > li > a.filename {
+    color: var(--color-on-surface);
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #attachment-list > li > a.filename::before {
+    content: var(--ico-attachment);
+    font-family: var(--font-icons);
+    font-size: 18px;
+    color: var(--color-primary);
+  }
+
+  #attachment-list > li .attachment-size {
+    color: var(--color-meta);
+    font-size: var(--text-xs);
+  }
+
+  #attachment-list > li a.dropdown,
+  #attachment-list > li a.attachment-menu {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    color: var(--color-on-surface-variant);
+  }
+
+  #attachment-list > li a.dropdown::before {
+    content: var(--ico-more-vert);
+    font-family: var(--font-icons);
+    font-size: 18px;
+  }
+
+  /* reply / forward chips at the bottom (added by mail.js in framed message view) */
+  .gm-reply-bar {
+    display: flex;
+    gap: 8px;
+    padding: 24px 0 8px 56px;
+  }
+
+  .gm-reply-bar .gm-btn {
+    border: 1px solid var(--color-outline);
+    color: var(--color-on-surface-variant);
+    padding: 0 16px 0 12px;
+  }
+
+  @media (width <= 768px) {
+    html.iframe .content.frame-content,
+    body.action-show #layout-content > .content,
+    body.action-show #layout-content .frame-content {
+      padding: 0 16px 16px;
+    }
+
+    #message-header,
+    #message-content,
+    .gm-reply-bar {
+      padding-left: 0;
+    }
+
+    #message-header > .header {
+      margin-left: 0;
+    }
+  }
+}
+
+/* letter avatar standing in for the sender photo (mail.js decorateMessageHeader) */
+@layer components {
+  #message-header .gm-msg-avatar {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    font: 500 18px / 1 var(--font-sans);
+    flex-shrink: 0;
+  }
+
+  #message-header img.contactphoto:not(.gm-loaded) {
+    visibility: hidden;
+  }
+}
+
+/* image parts rendered inline by core (<p class="image-attachment">) → Gmail attachment cards */
+@layer components {
+  #messagebody .image-attachment {
+    display: inline-flex;
+    flex-direction: column;
+    width: 240px;
+    max-width: 100%;
+    margin: 12px 12px 0 0;
+    padding: 0;
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    vertical-align: top;
+    background: var(--color-surface);
+  }
+
+  #messagebody .image-attachment .image-link {
+    display: grid;
+    place-items: center;
+    width: 100% !important;
+    min-height: 120px;
+    background: var(--color-surface-container);
+  }
+
+  #messagebody .image-attachment .image-thumbnail {
+    display: block;
+    max-width: 100%;
+    max-height: 160px !important;
+    object-fit: contain;
+  }
+
+  #messagebody .image-attachment .image-filename {
+    padding: 8px 12px 0;
+    font-size: var(--text-sm);
+    color: var(--color-on-surface);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #messagebody .image-attachment .image-filesize {
+    padding: 0 12px;
+    font-size: var(--text-xs);
+    color: var(--color-meta);
+  }
+
+  #messagebody .image-attachment .attachment-links {
+    display: flex;
+    gap: 12px;
+    padding: 8px 12px 10px;
+    font-size: var(--text-sm);
+  }
+
+  #messagebody .image-attachment .attachment-links a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+}
+
+/* message print page (rendered on screen before window.print) */
+@layer components {
+  body.action-print .print-content {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 24px 32px;
+  }
+
+  body.action-print #message-header,
+  body.action-print #message-header > .header {
+    padding: 0;
+    margin: 0;
+  }
+
+  body.action-print #message-header .contactphoto,
+  body.action-print #message-header .gm-msg-avatar,
+  body.action-print .header-links {
+    display: none;
+  }
+
+  body.action-print #message-header .header-headers {
+    display: block;
+  }
+
+  body.action-print #message-content {
+    padding-left: 0;
+  }
+
+  body.action-print #logo {
+    float: right;
+    max-height: 32px;
+  }
+}
+
+/* Gmail sender line (mail.js buildSummary) */
+@layer components {
+  .header-summary.gm-hidden {
+    display: none;
+  }
+
+  .gm-msg-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .gm-msg-line1 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    font-size: var(--text-base);
+    line-height: 20px;
+  }
+
+  .gm-msg-name {
+    font-weight: 700;
+    color: var(--color-on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gm-msg-email {
+    color: var(--color-on-surface-variant);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gm-msg-flags {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .gm-msg-date {
+    margin-left: auto;
+    padding-left: 12px;
+    color: var(--color-meta);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+  }
+
+  .gm-msg-line1 a.rcmaddcontact {
+    opacity: 0.72;
+  }
+
+  .gm-msg-line1:hover a.rcmaddcontact {
+    opacity: 1;
+  }
+
+  .gm-msg-to {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    height: 20px;
+    padding: 0 2px 0 0;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--color-on-surface-variant);
+    font: 400 var(--text-xs) / 20px var(--font-sans);
+    cursor: pointer;
+  }
+
+  .gm-msg-to:hover {
+    color: var(--color-on-surface);
+  }
+
+  .gm-msg-to .ico {
+    font-size: 18px;
+    transition: transform 150ms var(--ease-standard);
+  }
+
+  .gm-msg-to[aria-expanded='true'] .ico {
+    transform: rotate(180deg);
+  }
+
+  /* with the summary in place the old ▾ link is redundant */
+  #message-header .gm-msg-summary ~ .header-headers,
+  #message-header .header-links a.headers-summary {
+    margin-top: 6px;
+  }
+
+  #message-header:has(.gm-msg-summary) .header-links a.headers-summary {
+    display: none;
+  }
+}
+
+/* attachments block: chips row + zipdownload's "Download all attachments" as a tonal button */
+@layer components {
+  #layout-content .content > div[role='region']:has(> #attachment-list),
+  #message-content .leftcol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #message-content .leftcol:empty,
+  #message-content .leftcol:not(:has(li)) {
+    display: none;
+  }
+
+  #message-content .leftcol > h2.voice {
+    position: absolute;
+  }
+
+  a.button.zipdownload,
+  #attachment-list ~ a.zipdownload {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 16px 0 12px;
+    border-radius: 18px;
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    font: 500 var(--text-sm) / 36px var(--font-sans);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  a.button.zipdownload::before {
+    content: var(--ico-download);
+    font-family: var(--font-icons);
+    font-size: 20px;
+  }
+
+  a.button.zipdownload:hover {
+    filter: brightness(0.97);
+    text-decoration: none;
+  }
+}
+
+/* raw headers dialog (shim.headers_dialog) */
+@layer components {
+  .gm-headers-raw {
+    font: 12px / 20px var(--font-mono);
+    color: var(--color-on-surface);
+    white-space: normal;
+    overflow-wrap: anywhere;
+    padding: 4px 0 8px;
+  }
+
+  .gm-headers-raw font.bold {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+}

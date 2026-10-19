@@ -1,0 +1,13 @@
+node_modules/
+skin/styles/
+src/css/generated/
+skin/ui.js
+skin/ui.min.js
+skin/fonts/
+skin/images/icons.svg
+test-results/
+playwright-report/
+tests/__screenshots__/
+package-lock.json
+CHANGELOG.md
+skin/templates/

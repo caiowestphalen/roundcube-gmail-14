@@ -1,0 +1,148 @@
+/* Minimal, deliberate reset (Preflight is off). Only what the skin needs to own the page. */
+@layer base {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    height: 100%;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    color: var(--color-on-surface);
+    background: var(--color-surface-container-low);
+  }
+
+  body {
+    height: 100%;
+    margin: 0;
+    color: inherit;
+    background: inherit;
+    overflow: hidden;
+  }
+
+  a {
+    color: var(--color-link);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  img,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+    margin: 0;
+  }
+
+  button {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  ul,
+  ol,
+  fieldset,
+  legend {
+    margin: 0;
+    padding: 0;
+    font-weight: inherit;
+    font-size: inherit;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  iframe {
+    border: 0;
+  }
+
+  /* icon glyph base — pair with .ico-<name> from generated/icons.css */
+  .ico {
+    font-family: var(--font-icons);
+    font-weight: 400;
+    font-style: normal;
+    font-size: var(--spacing-icon);
+    line-height: 1;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: nowrap;
+    direction: ltr;
+    font-variation-settings: 'FILL' 0;
+    transition: font-variation-settings 150ms var(--ease-standard);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .ico.filled,
+  .ico-fill {
+    font-variation-settings: 'FILL' 1;
+  }
+
+  .ico-lg {
+    font-size: var(--spacing-icon-lg);
+  }
+
+  :focus-visible {
+    outline: none;
+  }
+
+  html.kbd :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .listing tr:focus,
+  .listing tr:focus-visible,
+  .listing li:focus,
+  .listing li:focus-visible,
+  .listing:focus,
+  .listing:focus-visible,
+  .scroller:focus,
+  .scroller:focus-visible,
+  [tabindex='-1']:focus {
+    outline: none;
+  }
+
+  ::selection {
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+  }
+}

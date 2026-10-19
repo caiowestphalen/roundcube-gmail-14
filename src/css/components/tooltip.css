@@ -1,0 +1,27 @@
+/* Custom tooltips (tooltip.js): Gmail's small dark pill, 12px, below the target. */
+@layer components {
+  .gm-tooltip {
+    position: fixed;
+    z-index: 1400;
+    max-width: 280px;
+    padding: 6px 8px;
+    border-radius: var(--radius-xs);
+    background: var(--color-inverse-surface);
+    color: var(--color-inverse-on-surface);
+    font: 500 var(--text-xs) / 16px var(--font-sans);
+    letter-spacing: 0.01em;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition:
+      opacity 100ms var(--ease-standard),
+      transform 100ms var(--ease-standard);
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .gm-tooltip.gm-visible {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,150 @@
+/* Date / date-time picker (datetime.js): trigger button + popover calendar. */
+@layer components {
+  .gm-dt-native {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .gm-dt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--color-outline);
+    border-radius: var(--radius-xs);
+    background: var(--color-surface);
+    color: var(--color-on-surface);
+    font: var(--text-base) / 20px var(--font-sans);
+    cursor: pointer;
+    max-width: 100%;
+  }
+
+  .gm-dt-btn:hover {
+    background: var(--color-surface-container-low);
+  }
+
+  .gm-dt-btn:focus-visible {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+  }
+
+  .gm-dt-btn .ico {
+    font-size: 20px;
+    color: var(--color-on-surface-variant);
+  }
+
+  .gm-dt-btn.gm-dt-empty .gm-dt-value {
+    color: var(--color-outline);
+  }
+
+  .gm-dt {
+    width: 300px;
+    padding: 12px 12px 8px;
+    border-radius: var(--radius-lg);
+    z-index: 1300;
+  }
+
+  .gm-dt-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .gm-dt-month {
+    font: 500 var(--text-base) / 20px var(--font-sans);
+    color: var(--color-on-surface);
+  }
+
+  .gm-dt-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+
+  .gm-dt-dow {
+    text-align: center;
+    font-size: var(--text-xs);
+    color: var(--color-on-surface-variant);
+    line-height: 28px;
+  }
+
+  .gm-dt-day {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-on-surface);
+    font: var(--text-sm) / 36px var(--font-sans);
+    cursor: pointer;
+  }
+
+  .gm-dt-day:hover {
+    background: var(--color-state-hover);
+  }
+
+  .gm-dt-day:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+  }
+
+  .gm-dt-day.today {
+    box-shadow: inset 0 0 0 1px var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .gm-dt-day.selected {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  .gm-dt-time {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    margin: 12px 0 4px;
+  }
+
+  .gm-dt-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: var(--text-xs);
+    color: var(--color-on-surface-variant);
+  }
+
+  .gm-dt-field input {
+    width: 64px;
+    min-height: 44px;
+    text-align: center;
+    font: 500 22px / 28px var(--font-sans);
+    border-radius: var(--radius-sm);
+  }
+
+  .gm-dt-colon {
+    font: 500 22px / 44px var(--font-sans);
+    color: var(--color-on-surface);
+  }
+
+  .gm-dt-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .gm-dt-spacer {
+    flex: 1 1 auto;
+  }
+}

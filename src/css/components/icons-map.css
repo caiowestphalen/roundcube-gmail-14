@@ -1,0 +1,496 @@
+/* Map Roundcube/Elastic semantic button & list classes → Material Symbols glyphs.
+   Any `a.button.icon.<name>`, toolbar link, folder or menu item gets its glyph from here, so
+   plugin templates written for Elastic render with our icons without changes. */
+@layer components {
+  /* base glyph box. :where() keeps specificity at (0,0,1) so every mapping below wins. */
+  :where(
+    .button.icon,
+    .toolbar > a,
+    .toolbar .dropbutton > a,
+    .menu.listing > li > a,
+    .popupmenu .menu > li > a,
+    .listing.folderlist li > a,
+    #directorylist li > a,
+    #savedsearchlist li > a,
+    .gm-nav-task
+  )::before {
+    font-family: var(--font-icons);
+    font-weight: 400;
+    font-style: normal;
+    font-size: var(--spacing-icon);
+    line-height: 1;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    text-align: center;
+    flex-shrink: 0;
+    font-variation-settings: 'FILL' 0;
+    -webkit-font-smoothing: antialiased;
+    content: '';
+  }
+
+  /* unmapped toolbar buttons stay visible (menu items simply get an empty glyph box) */
+  :where(.button.icon, .toolbar > a, .toolbar .dropbutton > a)::before {
+    content: var(--ico-more-horiz);
+  }
+
+  /* ----- toolbar / generic buttons ----- */
+  .button.icon.compose::before,
+  .toolbar a.compose::before {
+    content: var(--ico-compose);
+  }
+  .toolbar a.reply::before,
+  .menu a.reply::before {
+    content: var(--ico-reply);
+  }
+  .toolbar a.reply-all::before,
+  .menu a.reply.all::before {
+    content: var(--ico-reply-all);
+  }
+  .menu a.reply.list::before {
+    content: var(--ico-forward-to-inbox);
+  }
+  .toolbar a.forward::before,
+  .menu a.forward::before {
+    content: var(--ico-forward);
+  }
+  .menu a.forward.attachment::before {
+    content: var(--ico-attachment);
+  }
+  .menu a.forward.bounce::before {
+    content: var(--ico-outbox);
+  }
+  .toolbar a.delete::before,
+  .menu a.delete::before,
+  .button.icon.delete::before {
+    content: var(--ico-delete);
+  }
+  .toolbar a.print::before,
+  .menu a.print::before {
+    content: var(--ico-print);
+  }
+  .toolbar a.markmessage::before {
+    content: var(--ico-mail);
+  }
+  .toolbar a.more::before,
+  .menu a.more::before,
+  .button.icon.more::before {
+    content: var(--ico-more-vert);
+  }
+  .toolbar a.prev::before {
+    content: var(--ico-chevron-left);
+  }
+  .toolbar a.next::before {
+    content: var(--ico-chevron-right);
+  }
+  .toolbar a.refresh::before,
+  .button.icon.refresh::before {
+    content: var(--ico-refresh);
+  }
+  .toolbar a.select::before {
+    content: var(--ico-check-box-outline-blank);
+  }
+  .toolbar a.select.gm-all::before {
+    content: var(--ico-check-box);
+    color: var(--color-primary);
+  }
+  .toolbar a.select.gm-some::before {
+    content: var(--ico-indeterminate-check-box);
+    color: var(--color-primary);
+  }
+  .toolbar a.threads::before {
+    content: var(--ico-view-agenda);
+  }
+  .toolbar a.options::before,
+  .button.icon.options::before {
+    content: var(--ico-tune);
+  }
+  .toolbar a.archive::before,
+  .menu a.archive::before {
+    content: var(--ico-archive);
+  }
+  .toolbar a.junk::before,
+  .menu a.junk::before,
+  .toolbar a.markasjunk::before {
+    content: var(--ico-spam);
+  }
+  .toolbar a.notjunk::before,
+  .menu a.notjunk::before {
+    content: var(--ico-verified-user);
+  }
+  .toolbar a.move::before,
+  .menu a.move::before {
+    content: var(--ico-move);
+  }
+  .menu a.copy::before {
+    content: var(--ico-content-copy);
+  }
+  .toolbar a.download::before,
+  .menu a.download::before,
+  .menu a.export::before,
+  .button.icon.download::before {
+    content: var(--ico-download);
+  }
+  .menu a.import::before,
+  .button.icon.import::before {
+    content: var(--ico-upload);
+  }
+  .menu a.edit::before,
+  .toolbar a.edit::before,
+  .button.icon.edit::before {
+    content: var(--ico-edit);
+  }
+  .menu a.source::before {
+    content: var(--ico-code);
+  }
+  .menu a.extwin::before,
+  .toolbar a.extwin::before,
+  .button.icon.extwin::before {
+    content: var(--ico-open-in-new);
+  }
+  .menu a.read::before {
+    content: var(--ico-read);
+  }
+  .menu a.unread::before {
+    content: var(--ico-unread);
+  }
+  .menu a.flag::before {
+    content: var(--ico-star-filled);
+  }
+  .menu a.unflag::before {
+    content: var(--ico-star);
+  }
+  .menu a.undo::before {
+    content: var(--ico-undo);
+  }
+  .menu a.expunge::before {
+    content: var(--ico-density-small);
+  }
+  .menu a.purge::before {
+    content: var(--ico-delete);
+  }
+  .menu a.folders::before {
+    content: var(--ico-folder);
+  }
+  .menu a.selection::before {
+    content: var(--ico-check-box);
+  }
+  .menu a.select.all::before {
+    content: var(--ico-check-box);
+  }
+  .menu a.select.page::before {
+    content: var(--ico-description);
+  }
+  .menu a.select.unread::before {
+    content: var(--ico-unread);
+  }
+  .menu a.select.flagged::before {
+    content: var(--ico-star);
+  }
+  .menu a.select.invert::before {
+    content: var(--ico-sort);
+  }
+  .menu a.select.none::before {
+    content: var(--ico-check-box-outline-blank);
+  }
+  .menu a.expand::before {
+    content: var(--ico-expand-more);
+  }
+  .menu a.addressbook::before {
+    content: var(--ico-person-add);
+  }
+  .menu a.compose::before {
+    content: var(--ico-compose);
+  }
+  .menu a.settings::before,
+  .gm-nav-task.settings::before {
+    content: var(--ico-settings);
+  }
+  .menu a.about::before {
+    content: var(--ico-info);
+  }
+  .menu a.logout::before {
+    content: var(--ico-logout);
+  }
+  .menu a.mail::before,
+  .gm-nav-task.mail::before {
+    content: var(--ico-mail);
+  }
+  .menu a.contacts::before,
+  .gm-nav-task.contacts::before {
+    content: var(--ico-contacts);
+  }
+  .menu a.open::before {
+    content: var(--ico-open-in-new);
+  }
+  .button.icon.cancel::before,
+  .toolbar a.close::before,
+  .button.icon.close::before {
+    content: var(--ico-close);
+  }
+  .button.icon.back-list-button::before,
+  .button.icon.back-sidebar-button::before,
+  .button.icon.back::before {
+    content: var(--ico-arrow-back);
+  }
+  .button.icon.task-menu-button::before,
+  .button.icon.toolbar-menu-button::before {
+    content: var(--ico-menu);
+  }
+  .button.icon.sidebar-menu::before {
+    content: var(--ico-more-vert);
+  }
+  .button.icon.search::before {
+    content: var(--ico-search);
+  }
+  .button.icon.reset::before {
+    content: var(--ico-close);
+  }
+  .button.icon.dropdown::before {
+    content: var(--ico-expand-more);
+  }
+  .button.icon.create::before,
+  .button.icon.add::before,
+  .toolbar a.create::before,
+  .toolbar a.add::before {
+    content: var(--ico-add);
+  }
+  .button.icon.remove::before {
+    content: var(--ico-remove);
+  }
+  .button.icon.save::before,
+  .toolbar a.save::before {
+    content: var(--ico-save);
+  }
+  .button.icon.send::before,
+  .toolbar a.send::before {
+    content: var(--ico-send);
+  }
+  .button.icon.attach::before,
+  .toolbar a.attach::before {
+    content: var(--ico-attachment);
+  }
+  .button.icon.qrcode::before {
+    content: var(--ico-code);
+  }
+  .button.icon.vcard::before {
+    content: var(--ico-person);
+  }
+  .button.icon.upload::before {
+    content: var(--ico-upload);
+  }
+  .button.icon.headers::before {
+    content: var(--ico-info);
+  }
+  .button.icon.rename::before {
+    content: var(--ico-edit);
+  }
+  .button.icon.responses::before,
+  .toolbar a.responses::before {
+    content: var(--ico-description);
+  }
+  .button.icon.spellcheck::before,
+  .toolbar a.spellcheck::before {
+    content: var(--ico-spellcheck);
+  }
+  .button.icon.signature::before,
+  .toolbar a.signature::before {
+    content: var(--ico-edit);
+  }
+  .button.icon.firstpage::before {
+    content: var(--ico-chevron-left);
+  }
+  .button.icon.prevpage::before,
+  .pagenav a.prevpage::before {
+    content: var(--ico-chevron-left);
+  }
+  .button.icon.nextpage::before,
+  .pagenav a.nextpage::before {
+    content: var(--ico-chevron-right);
+  }
+  .button.icon.lastpage::before {
+    content: var(--ico-chevron-right);
+  }
+  .pagenav a.firstpage::before,
+  .pagenav a.lastpage::before {
+    display: none;
+  }
+  .button.icon.plain::before,
+  .button.icon.html::before {
+    content: var(--ico-code);
+  }
+  .button.icon.theme.dark::before {
+    content: var(--ico-dark-mode);
+  }
+  .button.icon.theme.light::before {
+    content: var(--ico-light-mode);
+  }
+  .button.icon.logout::before {
+    content: var(--ico-logout);
+  }
+  .button.icon.about::before {
+    content: var(--ico-info);
+  }
+  .button.icon.newcontact::before {
+    content: var(--ico-person-add);
+  }
+  .button.icon.groupactions::before {
+    content: var(--ico-more-vert);
+  }
+  .button.icon.folderactions::before {
+    content: var(--ico-more-vert);
+  }
+
+  /* hotkeys plugin: <a class="button plugin_hotkeys_button_outer"><span class="button-inner …">Keys</span> */
+  .toolbar > a.plugin_hotkeys_button_outer::before {
+    content: var(--ico-keyboard);
+  }
+  .toolbar > a.plugin_hotkeys_button_outer > .button-inner {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    background: none !important;
+  }
+
+  /* ----- plugins / secondary pages ----- */
+  .toolbar a.tb-label::before,
+  .menu a.tb-label::before {
+    content: var(--ico-label);
+  }
+  .toolbar a.snooze::before,
+  .menu a.snooze::before {
+    content: var(--ico-snooze);
+  }
+  .toolbar a.unsnooze::before {
+    content: var(--ico-alarm);
+  }
+  .toolbar a.search::before,
+  .menu a.search::before,
+  .button.icon.advanced::before {
+    content: var(--ico-search);
+  }
+  .toolbar a.import::before {
+    content: var(--ico-upload);
+  }
+  .toolbar a.export::before {
+    content: var(--ico-download);
+  }
+  .toolbar a.qrcode::before,
+  .menu a.qrcode::before {
+    content: var(--ico-code);
+  }
+  .menu a.assigngroup::before {
+    content: var(--ico-group);
+  }
+  .menu a.removegroup::before {
+    content: var(--ico-link-off);
+  }
+  .menu a.create::before,
+  .menu a.add::before {
+    content: var(--ico-add);
+  }
+  .menu a.group.rename::before,
+  .menu a.rename::before {
+    content: var(--ico-edit);
+  }
+  .menu a.group.delete::before,
+  .menu a.search.delete::before {
+    content: var(--ico-delete);
+  }
+  .menu a.save::before {
+    content: var(--ico-save);
+  }
+  .menu a.schedule::before,
+  .menu a.sendlater::before {
+    content: var(--ico-schedule);
+  }
+  .toolbar a.carddav_AccAdd::before {
+    content: var(--ico-add);
+  }
+  .toolbar a.carddav_AccRm::before {
+    content: var(--ico-delete);
+  }
+  .toolbar a.carddav_AccRedisc::before,
+  .toolbar a.carddav_AbSync::before,
+  .menu a.carddav_AbSync::before {
+    content: var(--ico-sync);
+  }
+  .toolbar a.carddav_AbToggle::before {
+    content: var(--ico-visibility);
+  }
+  td.rowbuttons a.advanced::before {
+    content: var(--ico-tune);
+  }
+  td.rowbuttons a.add::before {
+    content: var(--ico-add);
+  }
+  td.rowbuttons a.del::before {
+    content: var(--ico-close);
+  }
+  .button.icon.filtersets::before,
+  .toolbar a.filtersets::before {
+    content: var(--ico-filter-list);
+  }
+  .toolbar a.enable::before {
+    content: var(--ico-check-circle);
+  }
+  .toolbar a.disable::before {
+    content: var(--ico-block);
+  }
+  .toolbar a.copy::before {
+    content: var(--ico-content-copy);
+  }
+
+  /* ----- address books / groups (nav column) ----- */
+  #directorylist li > a::before {
+    content: var(--ico-contacts);
+  }
+  #directorylist li.contactgroup > a::before {
+    content: var(--ico-group);
+  }
+  #directorylist li.contactsearch > a::before,
+  #savedsearchlist li > a::before {
+    content: var(--ico-search);
+  }
+  #directorylist li.selected > a::before {
+    font-variation-settings: 'FILL' 1;
+  }
+
+  /* ----- folder list (mailboxlist) ----- */
+  .listing.folderlist li > a::before {
+    content: var(--ico-folder);
+  }
+  .listing.folderlist li.inbox > a::before {
+    content: var(--ico-inbox);
+  }
+  .listing.folderlist li.drafts > a::before {
+    content: var(--ico-drafts);
+  }
+  .listing.folderlist li.sent > a::before {
+    content: var(--ico-send);
+  }
+  .listing.folderlist li.junk > a::before {
+    content: var(--ico-spam);
+  }
+  .listing.folderlist li.trash > a::before {
+    content: var(--ico-delete);
+  }
+  .listing.folderlist li.archive > a::before {
+    content: var(--ico-archive);
+  }
+  .listing.folderlist li.virtual > a::before {
+    content: var(--ico-folder-open);
+  }
+  .listing.folderlist li.flagged > a::before,
+  .listing.folderlist li.starred > a::before {
+    content: var(--ico-star);
+  }
+
+  /* selected / important states use the filled glyph */
+  .listing.folderlist li.selected > a::before,
+  .gm-nav-task.selected::before {
+    font-variation-settings: 'FILL' 1;
+  }
+}

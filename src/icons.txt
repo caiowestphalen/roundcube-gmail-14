@@ -1,0 +1,152 @@
+# Material Symbols (Rounded) used by the skin — one per line: material_name [= css-alias]
+# Header / nav
+menu
+search
+tune = filter
+help
+settings
+apps
+account_circle
+edit = compose
+inbox
+star
+star_rate = star-filled
+schedule = snoozed
+send
+draft = drafts
+label
+label_important
+delete
+report = spam
+archive
+mail
+mark_email_unread = unread
+mark_email_read = read
+drafts = mail-open
+folder
+folder_open
+create_new_folder
+expand_more
+expand_less
+chevron_left
+chevron_right
+chevron_left = back
+arrow_back
+arrow_forward
+arrow_drop_down
+more_vert
+more_horiz
+refresh
+close
+check
+check_box
+check_box_outline_blank
+indeterminate_check_box
+radio_button_checked
+radio_button_unchecked
+add
+remove
+print
+open_in_new
+reply
+reply_all
+forward
+attach_file = attachment
+attachment = paperclip
+image
+insert_link = link
+sentiment_satisfied = emoji
+format_bold
+format_italic
+format_underlined
+format_list_bulleted
+format_list_numbered
+format_quote
+format_clear
+format_align_left
+format_align_center
+format_align_right
+format_color_text
+format_size
+undo
+redo
+minimize
+open_in_full = fullscreen
+close_fullscreen = exit-fullscreen
+person
+contacts
+group
+person_add
+import_contacts
+upload = import
+download = export
+save
+cancel
+warning
+error
+info
+check_circle
+notifications
+dark_mode
+light_mode
+brightness_auto = theme-auto
+visibility
+visibility_off
+lock
+lock_open
+logout
+login
+key
+vpn_key
+calendar_today = calendar
+event
+flag
+priority_high
+shield
+verified_user
+block
+filter_list
+sort
+view_agenda = layout-list
+view_sidebar = layout-widescreen
+vertical_split = layout-desktop
+density_small
+density_medium
+drag_indicator
+content_copy
+move_to_inbox
+drive_file_move = move
+markunread_mailbox
+outbox
+forward_to_inbox
+unsubscribe
+spellcheck
+translate
+auto_awesome = ai
+smart_toy
+history
+language
+keyboard
+storage
+cloud
+cloud_upload
+description
+picture_as_pdf
+code
+# extra originals (aliases above keep their alias name too)
+snooze
+alarm
+contact_page
+mail_lock
+verified
+sync
+link_off
+manage_accounts
+photo_camera
+delete_forever
+tune
+edit
+upload
+download
+view_agenda
+schedule

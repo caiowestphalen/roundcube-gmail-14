@@ -1,0 +1,310 @@
+/* Generic Roundcube lists (.listing): settings sections, folders, identities, responses, contacts,
+   plugin lists (filters, sets…). Both <table> and <ul> variants. 40px rows, hover/selected states. */
+@layer components {
+  .listing {
+    width: 100%;
+  }
+
+  table.listing {
+    border-collapse: collapse;
+  }
+
+  table.listing > thead {
+    display: none;
+  }
+
+  .listing:not(.messagelist) tr,
+  .listing > li,
+  .listing ul > li {
+    position: relative;
+  }
+
+  .listing > li > a,
+  .listing ul > li > a,
+  .listing > li > span,
+  #settings-menu li > a,
+  .listbox .menu.listing > li > a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 40px;
+    padding: 8px 16px 8px 24px;
+    color: var(--color-on-surface);
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+  }
+
+  .listing:not(.messagelist) tr {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 16px 0 24px;
+    gap: 16px;
+    cursor: pointer;
+    transition: background-color 100ms var(--ease-standard);
+  }
+
+  .listing:not(.messagelist) tr > td {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 20px;
+    color: var(--color-on-surface);
+  }
+
+  .listing:not(.messagelist) tr:hover,
+  .listing > li > a:hover,
+  .listing ul > li > a:hover,
+  #settings-menu li > a:hover {
+    background: var(--color-state-hover);
+    text-decoration: none;
+  }
+
+  .listing:not(.messagelist) tr.selected,
+  .listing > li.selected > a,
+  .listing ul > li.selected > a,
+  #settings-menu li.selected > a,
+  .listing:not(.messagelist) tr.selected > td {
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    font-weight: 500;
+  }
+
+  html.kbd .listing:not(.messagelist):focus-within tr.focused,
+  html.kbd .listing:focus-within li.focused > a {
+    box-shadow: inset 3px 0 0 var(--color-primary);
+  }
+
+  /* ul tree lists whose <li> carries name + extra controls (folder subscriptions): one line */
+  #subscription-table > li,
+  #subscription-table li {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  #subscription-table li > a {
+    flex: 1 1 auto;
+    margin-right: 0;
+  }
+
+  #subscription-table li > input[type='checkbox'],
+  #subscription-table li > .custom-switch {
+    margin: 0 16px 0 8px;
+    flex: 0 0 auto;
+  }
+
+  #subscription-table li > ul {
+    flex-basis: 100%;
+  }
+
+  #subscription-table li.root {
+    display: none;
+  }
+
+  .listing:not(.messagelist) tr.disabled,
+  .listing > li.disabled > a {
+    opacity: 0.5;
+  }
+
+  /* icon column rendered by core (.iconized) via ::before */
+  .listing.iconized > li > a::before,
+  .listing.iconized:not(.messagelist) tr > td:first-child::before,
+  #settings-menu li > a::before {
+    font-family: var(--font-icons);
+    font-size: 20px;
+    line-height: 1;
+    color: var(--color-on-surface-variant);
+    content: var(--ico-description);
+    flex-shrink: 0;
+    margin-right: 16px;
+    vertical-align: middle;
+  }
+
+  .listing:not(.messagelist) *:focus,
+  .listing:not(.messagelist) *:focus-visible {
+    outline: none;
+  }
+
+  .listing:not(.messagelist) tr.selected > td:first-child::before,
+  #settings-menu li.selected > a::before,
+  .listing.iconized > li.selected > a::before {
+    color: var(--color-on-secondary-container);
+  }
+
+  /* settings sections (settings-menu.html: <a class="preferences|folders|identities|responses|…">) */
+  #settings-menu li > a.preferences::before {
+    content: var(--ico-tune);
+  }
+  #settings-menu li > a.folders::before {
+    content: var(--ico-folder);
+  }
+  #settings-menu li > a.identities::before {
+    content: var(--ico-person);
+  }
+  #settings-menu li > a.responses::before {
+    content: var(--ico-description);
+  }
+  #settings-menu li > a.password::before {
+    content: var(--ico-key);
+  }
+  #settings-menu li > a.filter::before,
+  #settings-menu li > a.filters::before,
+  #settings-menu li > a.managesieve::before {
+    content: var(--ico-filter-list);
+  }
+  #settings-menu li > a.vacation::before {
+    content: var(--ico-event);
+  }
+  #settings-menu li > a.forward::before {
+    content: var(--ico-forward-to-inbox);
+  }
+  #settings-menu li > a.enigma::before,
+  #settings-menu li > a.encryption::before {
+    content: var(--ico-lock);
+  }
+  #settings-menu li > a.carddav::before {
+    content: var(--ico-contacts);
+  }
+  #settings-menu li > a.twofactor_gauthenticator::before,
+  #settings-menu li.twofactor_gauthenticator > a::before {
+    content: var(--ico-shield);
+  }
+  #settings-menu li > a.about::before {
+    content: var(--ico-info);
+  }
+
+  /* preferences sections (settings-default-icon) */
+  #sections-table tr > td:first-child::before {
+    content: var(--ico-tune);
+  }
+  #sections-table tr.general > td:first-child::before {
+    content: var(--ico-language);
+  }
+  #sections-table tr.mailbox > td:first-child::before {
+    content: var(--ico-inbox);
+  }
+  #sections-table tr.mailview > td:first-child::before {
+    content: var(--ico-mail-open);
+  }
+  #sections-table tr.compose > td:first-child::before {
+    content: var(--ico-compose);
+  }
+  #sections-table tr.addressbook > td:first-child::before {
+    content: var(--ico-contacts);
+  }
+  #sections-table tr.folders > td:first-child::before {
+    content: var(--ico-folder);
+  }
+  #sections-table tr.server > td:first-child::before {
+    content: var(--ico-storage);
+  }
+  #sections-table tr.encryption > td:first-child::before {
+    content: var(--ico-lock);
+  }
+  #sections-table tr.calendar > td:first-child::before {
+    content: var(--ico-calendar);
+  }
+  #sections-table tr.authres_status > td:first-child::before {
+    content: var(--ico-verified-user);
+  }
+  #sections-table tr.scheduled_sending > td:first-child::before {
+    content: var(--ico-schedule);
+  }
+  #sections-table tr.thunderbird_labels > td:first-child::before {
+    content: var(--ico-label);
+  }
+  #sections-table tr.hotkeys > td:first-child::before {
+    content: var(--ico-keyboard);
+  }
+  #settings-menu li > a.cd_preferences::before {
+    content: var(--ico-contacts);
+  }
+
+  /* folders (settings/folders): name + subscription toggle */
+  #subscription-table tr > td.name {
+    flex: 1 1 auto;
+  }
+
+  #subscription-table tr > td.subscribed {
+    flex: 0 0 auto;
+    padding-right: 8px;
+  }
+
+  #subscription-table tr > td.name::before {
+    font-family: var(--font-icons);
+    font-size: 20px;
+    color: var(--color-on-surface-variant);
+    content: var(--ico-folder);
+    margin-right: 16px;
+  }
+
+  #subscription-table tr.inbox > td.name::before {
+    content: var(--ico-inbox);
+  }
+  #subscription-table tr.drafts > td.name::before {
+    content: var(--ico-drafts);
+  }
+  #subscription-table tr.sent > td.name::before {
+    content: var(--ico-send);
+  }
+  #subscription-table tr.junk > td.name::before {
+    content: var(--ico-spam);
+  }
+  #subscription-table tr.trash > td.name::before {
+    content: var(--ico-delete);
+  }
+
+  /* tree indentation in folder tables */
+  #subscription-table tr[class*='level'] > td.name {
+    padding-left: 24px;
+  }
+
+  /* identities / responses lists */
+  #identities-table tr > td::before,
+  #responses-table tr > td::before {
+    font-family: var(--font-icons);
+    font-size: 20px;
+    color: var(--color-on-surface-variant);
+    margin-right: 16px;
+    content: var(--ico-person);
+  }
+
+  #responses-table tr > td::before {
+    content: var(--ico-description);
+  }
+
+  /* contacts list (table.contactlist) */
+  .contactlist tr > td.name {
+    flex: 1 1 auto;
+  }
+
+  .contactlist tr > td.name::before {
+    display: none;
+  }
+
+  /* list placeholders / empty state */
+  .listing .listing-empty,
+  .listing:not(.messagelist) tr.listitem-empty td,
+  .list-placeholder {
+    justify-content: center;
+    color: var(--color-on-surface-variant);
+    padding: 48px 24px;
+  }
+
+  /* sidebar panel headers (settings sections / addressbooks) */
+  .listbox > .header > .header-title {
+    font: 500 var(--text-md) / 24px var(--font-sans);
+    color: var(--color-on-surface);
+  }
+}

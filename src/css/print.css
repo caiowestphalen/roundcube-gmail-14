@@ -1,0 +1,83 @@
+/* Print stylesheet (message print view). */
+@import './tokens.css';
+
+@page {
+  margin: 15mm;
+}
+
+html,
+body {
+  background: #fff;
+  color: #000;
+  font-family: var(--font-sans);
+  font-size: 12pt;
+  line-height: 1.4;
+}
+
+#layout-header,
+#layout-menu,
+.toolbar,
+.no-print {
+  display: none !important;
+}
+
+.headers-table th {
+  text-align: left;
+  padding-right: 1em;
+  font-weight: 700;
+}
+
+#messagebody {
+  margin-top: 1em;
+}
+
+a[href]::after {
+  content: ' (' attr(href) ')';
+  font-size: 0.8em;
+}
+
+/* the print template reuses the message header partials: force the details table open */
+.print-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#logo {
+  float: right;
+  max-height: 32px;
+  margin: 0 0 12px 12px;
+}
+
+#message-header h2.subject {
+  font-size: 20pt;
+  font-weight: 400;
+  margin: 0 0 8px;
+}
+
+#message-header .contactphoto,
+#message-header .gm-msg-avatar {
+  display: none;
+}
+
+#message-header .header-headers {
+  display: block !important;
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+#message-header .header-headers table td.header-title {
+  padding: 2px 12px 2px 0;
+  color: #555;
+  vertical-align: top;
+}
+
+#attachment-list {
+  margin: 12px 0;
+  padding: 0;
+  list-style: none;
+}
+
+#attachment-list li {
+  margin: 4px 0;
+}

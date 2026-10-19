@@ -1,0 +1,155 @@
+/* Modal dialogs (modal.js): scrim + M3 dialog (r28, surface-container-high, 24px padding). */
+@layer components {
+  .gm-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgb(0 0 0 / 0.32);
+    opacity: 0;
+    transition: opacity 150ms var(--ease-standard);
+  }
+
+  .gm-scrim.gm-visible {
+    opacity: 1;
+  }
+
+  .gm-dialog {
+    display: flex;
+    flex-direction: column;
+    width: min(560px, 100%);
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 28px;
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface);
+    box-shadow: var(--shadow-menu);
+    transform: scale(0.96);
+    transition: transform 150ms var(--ease-emphasized);
+    overflow: hidden;
+  }
+
+  html.dark-mode .gm-dialog {
+    background: var(--color-surface-container-high);
+  }
+
+  .gm-scrim.gm-visible .gm-dialog {
+    transform: none;
+  }
+
+  .gm-dialog-sm {
+    width: min(400px, 100%);
+  }
+
+  .gm-dialog-lg {
+    width: min(900px, 100%);
+    height: min(80vh, 720px);
+  }
+
+  .gm-dialog-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 16px 8px 24px;
+  }
+
+  .gm-dialog-title {
+    flex: 1 1 auto;
+    font: 400 var(--text-xl) / 28px var(--font-sans);
+    color: var(--color-on-surface);
+  }
+
+  .gm-dialog-close {
+    margin: -8px -4px -8px 0;
+  }
+
+  .gm-dialog-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    padding: 8px 24px;
+    color: var(--color-on-surface-variant);
+    font-size: var(--text-base);
+    line-height: 20px;
+  }
+
+  .gm-dialog-body > iframe,
+  .gm-picker-frame {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    border: 0;
+    background: var(--color-surface);
+    border-radius: var(--radius-sm);
+  }
+
+  .gm-dialog-text {
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  .gm-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 16px 24px 24px;
+  }
+
+  /* core injects .popup content (e.g. import dialog forms) */
+  .gm-dialog-body .popup,
+  .gm-dialog-body .formcontent {
+    padding: 0;
+  }
+
+  html.gm-modal-open {
+    overflow: hidden;
+  }
+
+  @media (width <= 600px) {
+    .gm-scrim {
+      padding: 0;
+      align-items: flex-end;
+    }
+
+    .gm-dialog {
+      width: 100%;
+      max-height: 92vh;
+      border-radius: 28px 28px 0 0;
+    }
+  }
+}
+
+/* list options dialog (mail.js openListOptions) */
+@layer components {
+  .gm-listoptions {
+    padding: 0;
+  }
+
+  .gm-listoptions .form-group.row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 12px;
+  }
+
+  .gm-listoptions .form-group.row > label {
+    flex: 0 0 140px;
+    width: auto;
+    color: var(--color-on-surface-variant);
+  }
+
+  .gm-listoptions .form-group.row > div {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+}
+
+/* plugin dialogs pass "*" buttons as separators (hotkeys) */
+@layer components {
+  .gm-dialog-actions .gm-btn-spacer {
+    display: none;
+  }
+}

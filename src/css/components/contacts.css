@@ -1,0 +1,456 @@
+/* Address book: directory list in the nav column (nav.css), 40px contact rows with letter avatars,
+   Gmail-Contacts-style card/form in the frame (photo left, name block, compact property groups). */
+@layer components {
+  /* ---- list rows ---- */
+  #contactlist-content .listing:not(.messagelist) tr {
+    min-height: 40px;
+    padding: 0 16px 0 12px;
+  }
+
+  table.contactlist tr > td.name {
+    gap: 14px;
+    padding: 4px 0;
+    font-size: var(--text-base);
+  }
+
+  table.listing.iconized.contactlist tr > td.name:first-child::before {
+    display: inline-grid !important;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gm-avatar-bg, var(--color-surface-container-highest));
+    color: #fff;
+    font: 500 14px / 1 var(--font-sans);
+    font-family: var(--font-sans);
+    content: attr(data-initial);
+    margin-right: 0;
+    flex-shrink: 0;
+  }
+
+  table.listing.iconized.contactlist tr.contactgroup > td.name:first-child::before,
+  table.listing.iconized.contactlist tr.group > td.name:first-child::before {
+    font-family: var(--font-icons);
+    font-size: 18px;
+    content: var(--ico-group);
+    background: var(--color-surface-container-highest);
+    color: var(--color-on-surface-variant);
+  }
+
+  table.contactlist tr.selected > td.name {
+    font-weight: 500;
+  }
+
+  /* ---- card / form (contact.html, contactedit.html) ---- */
+  html.iframe body.task-addressbook .formcontent {
+    padding: 24px 32px 16px;
+    max-width: 880px;
+  }
+
+  .contact-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 0 0 24px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--color-outline-variant);
+  }
+
+  .contact-photo,
+  fieldset.contact-photo {
+    flex: 0 0 auto;
+    width: 96px;
+    height: 96px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--color-surface-container-high);
+    position: relative;
+  }
+
+  .contact-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .contact-photo #contactpic,
+  .contact-photo .image-upload {
+    position: absolute;
+    inset: 0;
+  }
+
+  .contact-photo .droptarget:not(.image-upload),
+  .contact-photo .photo-actions {
+    display: none;
+  }
+
+  .gm-photo-choose {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: end center;
+    padding: 8px 10px 14px;
+    color: white;
+    background: linear-gradient(transparent 35%, rgb(0 0 0 / 65%));
+    font-size: 11px;
+    line-height: 14px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 50%;
+  }
+
+  .gm-photo-choose:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: -3px;
+  }
+
+  .gm-photo-remove {
+    margin-bottom: 16px;
+  }
+
+  .gm-photo-remove[hidden] {
+    display: none;
+  }
+
+  fieldset.contact-head {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  fieldset.contact-head > legend {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  /* read-only head: big name + secondary lines */
+  .contact-head.readonly {
+    padding-top: 12px;
+  }
+
+  .contact-head.readonly .names {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 8px;
+    font: 400 var(--text-2xl, 28px) / 36px var(--font-sans);
+    color: var(--color-on-surface);
+  }
+
+  .contact-head.readonly .names:empty::before,
+  .contact-head.readonly .names:not(:has(.namefield))::before {
+    content: attr(data-fallback);
+  }
+
+  .contact-head.readonly .displayname,
+  .contact-head.readonly .nickname,
+  .contact-head.readonly .organization,
+  .contact-head.readonly .department,
+  .contact-head.readonly .jobtitle {
+    color: var(--color-on-surface-variant);
+    font-size: var(--text-base);
+    line-height: 22px;
+  }
+
+  .contact-head.readonly .source {
+    margin-top: 8px;
+    font-size: var(--text-xs);
+    color: var(--color-on-surface-variant);
+  }
+
+  .contact-head.readonly .source .label {
+    margin-right: 4px;
+  }
+
+  /* edit head: name grid, label above input */
+  .contact-head:not(.readonly) .names {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 16px;
+  }
+
+  .contact-head:not(.readonly) .row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 0 0 12px;
+  }
+
+  .contact-head:not(.readonly) .names .row {
+    margin: 0;
+  }
+
+  .contact-head:not(.readonly) .row > label {
+    font-size: var(--text-xs);
+    color: var(--color-on-surface-variant);
+  }
+
+  .contact-head:not(.readonly) .row > div {
+    display: flex;
+    gap: 8px;
+  }
+
+  .contact-head:not(.readonly) .row input {
+    width: 100%;
+  }
+
+  /* "Add field…" selector */
+  p.addfield {
+    margin: 8px 0 0;
+    max-width: 220px;
+  }
+
+  p.addfield .gm-select-btn {
+    border-color: transparent;
+    background: var(--color-surface-container);
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  /* ---- property sections ---- */
+  #contacttabs.tabbed {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #contacttabs.tabbed > fieldset.propform {
+    margin: 0;
+    padding: 12px 0 8px;
+    border: 0;
+    border-bottom: 1px solid var(--color-outline-variant);
+  }
+
+  #contacttabs.tabbed > fieldset.propform:last-child {
+    border-bottom: 0;
+  }
+
+  #contacttabs.tabbed > fieldset.propform > legend {
+    font: 500 var(--text-md) / 24px var(--font-sans);
+    color: var(--color-on-surface);
+    padding: 0;
+    margin: 0 0 12px;
+  }
+
+  fieldset.contactfieldgroup {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 4px 16px;
+    align-items: start;
+    margin: 0 0 12px;
+    padding: 0;
+    border: 0;
+  }
+
+  fieldset.contactfieldgroup > legend {
+    grid-column: 1;
+    float: left;
+    width: 120px;
+    margin: 0;
+    padding: 10px 0 0;
+    font: 500 var(--text-xs) / 16px var(--font-sans);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-on-surface-variant);
+  }
+
+  fieldset.contactfieldgroup > .row {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 8px;
+    min-width: 0;
+  }
+
+  /* single-field groups (gender, birthday, notes) put their own label in the row */
+  fieldset.contactfieldgroup:not(.contactfieldgroupmulti) > .row {
+    grid-column: 1 / -1;
+  }
+
+  fieldset.contactfieldgroup .row > label.contactfieldlabel {
+    flex: 0 0 120px;
+    font: 500 var(--text-xs) / 16px var(--font-sans);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-on-surface-variant);
+  }
+
+  fieldset.contactfieldgroup .row > .gm-select {
+    flex: 0 0 140px;
+    width: 140px;
+  }
+
+  fieldset.contactfieldgroup .row > input,
+  fieldset.contactfieldgroup .row > textarea,
+  fieldset.contactfieldgroup .row > .content,
+  fieldset.contactfieldgroup .row > .contactfieldcontent {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  fieldset.contactfieldgroup .row > textarea {
+    min-height: 120px;
+  }
+
+  fieldset.contactfieldgroup .row > .gm-dt-btn {
+    min-width: 220px;
+  }
+
+  /* composite address: street full, then city + zip, country + region */
+  fieldset.contactfieldgroup .row.composite {
+    align-items: flex-start;
+  }
+
+  fieldset.contactfieldgroup .row.composite > .gm-select {
+    margin-top: 0;
+  }
+
+  fieldset.contactfieldgroup .row > .content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  fieldset.contactfieldgroup .row > .content > .ff_street {
+    grid-column: 1 / -1;
+  }
+
+  a.contactfieldbutton {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    color: var(--color-on-surface-variant);
+    text-decoration: none;
+    font-size: 0;
+  }
+
+  a.contactfieldbutton:hover {
+    background: var(--color-state-hover);
+  }
+
+  a.contactfieldbutton::before {
+    font-family: var(--font-icons);
+    font-size: 20px;
+    content: var(--ico-close);
+  }
+
+  a.contactfieldbutton.addbutton::before {
+    content: var(--ico-add);
+  }
+
+  /* Advanced search uses div.contactfieldgroup rather than editable fieldsets. */
+  #advsearchform .contactfieldgroup .row {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  #advsearchform .contactfieldlabel {
+    color: var(--color-on-surface-variant);
+  }
+
+  #advsearchform .contactfieldcontent {
+    min-width: 0;
+  }
+
+  /* read-only values */
+  .contactfieldcontent {
+    color: var(--color-on-surface);
+    font-size: var(--text-base);
+    line-height: 20px;
+    overflow-wrap: anywhere;
+  }
+
+  .contactfieldcontent a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .contactfieldcontent a:hover {
+    text-decoration: underline;
+  }
+
+  fieldset.propform.readonly .row > label.contactfieldlabel {
+    padding-top: 2px;
+  }
+
+  /* form buttons row stays at the bottom of the frame */
+  html.iframe body.task-addressbook .formbuttons {
+    padding: 12px 32px 24px;
+    max-width: 880px;
+  }
+
+  @media (width <= 600px) {
+    html.iframe body.task-addressbook .formcontent {
+      padding: 20px 16px;
+    }
+
+    fieldset.contactfieldgroup .row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 32px;
+      gap: 8px;
+    }
+
+    fieldset.contactfieldgroup .row > :not(.contactfieldbutton) {
+      grid-column: 1;
+      width: 100%;
+      min-width: 0;
+    }
+
+    fieldset.contactfieldgroup .row > .contactfieldbutton {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .contact-header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .contact-head:not(.readonly) .names {
+      grid-template-columns: 1fr;
+    }
+
+    fieldset.contactfieldgroup {
+      grid-template-columns: 1fr;
+    }
+
+    fieldset.contactfieldgroup > legend,
+    fieldset.contactfieldgroup > .row {
+      grid-column: 1;
+    }
+  }
+}
+
+/* contact form opened in the "add to address book" modal (contact-dialog.js) */
+@layer components {
+  html.gm-in-dialog body.task-addressbook .formcontent {
+    padding: 8px 8px 0;
+    max-width: none;
+  }
+
+  html.gm-in-dialog .formbuttons {
+    display: none;
+  }
+
+  .gm-contact-dialog .gm-dialog-body {
+    padding: 0 8px;
+  }
+
+  .gm-contact-dialog .gm-picker-frame {
+    min-height: 60vh;
+  }
+}

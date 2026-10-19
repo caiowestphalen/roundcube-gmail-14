@@ -1,0 +1,151 @@
+/* Floating compose window (compose-window.js). Gmail: 600 wide, bottom-anchored, r8 top corners,
+   header 40px on surface-container, elevation shadow; minimized = header only; full = centered. */
+@layer components {
+  .gm-cwin {
+    position: fixed;
+    bottom: 0;
+    right: 72px;
+    width: min(600px, calc(100vw - 32px));
+    height: min(616px, calc(100vh - 80px));
+    z-index: 700;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-compose);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 150ms var(--ease-standard),
+      transform 200ms var(--ease-emphasized),
+      width 200ms var(--ease-standard),
+      height 200ms var(--ease-standard),
+      right 200ms var(--ease-standard);
+  }
+
+  .gm-cwin.gm-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .gm-cwin[data-state='min'] {
+    width: 260px;
+    height: 40px;
+  }
+
+  .gm-cwin[data-state='full'] {
+    top: 40px;
+    bottom: auto;
+    left: 50%;
+    right: auto !important;
+    transform: translateX(-50%);
+    width: min(1140px, calc(100vw - 80px));
+    height: calc(100vh - 80px);
+    border-radius: var(--radius-sm);
+    z-index: 1050;
+  }
+
+  html.gm-cwin-fullscreen::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgb(0 0 0 / 0.4);
+    z-index: 1040;
+  }
+
+  .gm-cwin-head {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 8px 0 16px;
+    background: var(--color-surface-container);
+    color: var(--color-on-primary-container);
+    cursor: default;
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  html.dark-mode .gm-cwin-head {
+    background: var(--color-surface-container-high);
+    color: var(--color-on-surface);
+  }
+
+  .gm-cwin-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    font: 500 var(--text-base) / 20px var(--font-sans);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gm-cwin-actions {
+    display: inline-flex;
+    gap: 4px;
+  }
+
+  .gm-cwin-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    color: inherit;
+  }
+
+  .gm-cwin-btn:hover {
+    background: var(--color-state-hover);
+  }
+
+  .gm-cwin-btn .ico {
+    font-size: 18px;
+  }
+
+  .gm-cwin[data-state='full'] .gm-cwin-btn.full .ico::before {
+    content: var(--ico-exit-fullscreen);
+  }
+
+  .gm-cwin-frame {
+    flex: 1 1 auto;
+    width: 100%;
+    border: 0;
+    background: var(--color-surface);
+  }
+
+  .gm-cwin[data-state='min'] .gm-cwin-frame {
+    display: none;
+  }
+
+  /* inside the popup: the compose page hides its own header row */
+  html.gm-in-popup #layout-content > .gm-compose-head {
+    display: none;
+  }
+
+  html.gm-in-popup .gm-compose-page,
+  html.gm-in-popup #layout-content {
+    border-radius: 0;
+    height: 100%;
+  }
+
+  @media (width <= 768px) {
+    .gm-cwin,
+    .gm-cwin[data-state='full'] {
+      inset: 0 !important;
+      width: 100%;
+      height: 100%;
+      transform: none;
+      border-radius: 0;
+    }
+  }
+}
+
+/* "Draft saved · 12:04" next to the popup title (toast.js) */
+@layer components {
+  .gm-cwin-title[data-status]::after {
+    content: attr(data-status);
+    margin-left: 12px;
+    font: 400 var(--text-xs) / 16px var(--font-sans);
+    color: var(--color-on-surface-variant);
+  }
+}

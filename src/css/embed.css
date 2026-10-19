@@ -1,0 +1,43 @@
+/* Embedded content: message-part iframes and the TinyMCE editable body (editor_css_location). */
+@import './tokens.css';
+
+html,
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-on-surface);
+  background: var(--color-surface);
+}
+
+html.dark-mode,
+html.dark-mode body {
+  color: var(--color-on-surface);
+  background: var(--color-surface);
+}
+
+body {
+  padding: 8px;
+}
+
+a {
+  color: var(--color-link);
+}
+
+blockquote {
+  margin: 0 0 0 4px;
+  padding-left: 12px;
+  border-left: 2px solid var(--color-outline-variant);
+  color: var(--color-on-surface-variant);
+}
+
+pre {
+  white-space: pre-wrap;
+  font-family: var(--font-mono);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}

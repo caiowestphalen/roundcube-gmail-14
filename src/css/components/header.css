@@ -1,0 +1,596 @@
+/* Top app bar: 64px — hamburger, logo, search pill (720×48 r24), actions, avatar. */
+@layer components {
+  #layout-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    height: var(--spacing-header);
+    padding: 0 8px 0 0;
+    gap: 8px;
+    background: var(--color-surface);
+  }
+
+  .gm-header-start {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-left: 12px;
+    min-width: var(--spacing-nav);
+    max-width: 320px;
+  }
+
+  .gm-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 8px 0 4px;
+    color: var(--color-on-surface-variant);
+    text-decoration: none;
+    min-width: 0;
+  }
+
+  .gm-brand:hover {
+    text-decoration: none;
+  }
+
+  #logo {
+    height: 32px;
+    max-width: 110px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .gm-brand-name {
+    display: none;
+  }
+
+  .gm-header-center {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .gm-header-end {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 8px;
+  }
+
+  /* Keep the identity_switch anchor in the DOM without duplicating the account label. */
+  .gm-header-end > .username {
+    display: none;
+  }
+
+  /* ---- search pill ---- */
+  .gm-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 720px;
+    height: 48px;
+    border-radius: var(--radius-xl);
+    background: var(--color-surface-container-high);
+    transition:
+      background-color 120ms var(--ease-standard),
+      box-shadow 120ms var(--ease-standard);
+  }
+
+  .gm-search:focus-within {
+    background: var(--color-surface);
+    box-shadow: var(--shadow-fab);
+  }
+
+  .gm-search form {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .gm-search .voice + input,
+  .gm-search input[type='text'],
+  .gm-search input[name='_q'] {
+    flex: 1 1 auto;
+    min-height: 48px;
+    border: 0;
+    background: transparent;
+    padding: 0 8px 0 56px;
+    font: 400 16px / 24px var(--font-sans);
+    box-shadow: none;
+  }
+
+  .gm-search input:focus {
+    box-shadow: none;
+    border: 0;
+  }
+
+  .gm-search .button.search {
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    color: var(--color-on-surface-variant);
+  }
+
+  .gm-search .button.reset,
+  .gm-search .button.options {
+    margin-right: 4px;
+  }
+
+  .gm-search .button.reset {
+    display: none;
+  }
+
+  .gm-search.gm-has-value .button.reset,
+  .gm-search:focus-within .button.reset {
+    display: inline-flex;
+  }
+
+  /* advanced search panel anchored under the pill (mail.html #searchmenu) */
+  .gm-search-options {
+    position: fixed;
+    top: 56px;
+    left: var(--spacing-nav);
+    width: min(720px, calc(100vw - var(--spacing-nav) - 24px));
+    max-height: calc(100vh - 80px);
+    overflow: auto;
+    z-index: 50;
+    background: var(--color-surface);
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    box-shadow: var(--shadow-menu);
+  }
+
+  html.nav-collapsed .gm-search-options {
+    left: var(--spacing-nav-rail);
+  }
+
+  .gm-search-options.hidden {
+    display: none;
+  }
+
+  /* ---- avatar ---- */
+  .gm-avatar {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .gm-avatar:hover {
+    text-decoration: none;
+    box-shadow: 0 0 0 4px var(--color-state-hover);
+  }
+
+  .gm-avatar-initial {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: #fff;
+    font: 500 15px / 1 var(--font-sans);
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  .gm-avatar-sm .gm-avatar-initial,
+  .gm-avatar-sm.gm-avatar-initial {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .gm-avatar-xl .gm-avatar-initial,
+  .gm-avatar-xl.gm-avatar-initial {
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+  }
+
+  /* ---- account menu (Google account chip): grey shell r28, email, big avatar, pill, white list ---- */
+  .popupmenu.gm-account-menu {
+    width: 380px;
+    max-width: calc(100vw - 16px);
+    padding: 8px;
+    border-radius: 28px;
+    background: var(--color-surface-container-high);
+    box-shadow: var(--shadow-menu);
+  }
+
+  html.dark-mode .popupmenu.gm-account-menu {
+    background: var(--color-surface-container);
+  }
+
+  .gm-account-email {
+    padding: 12px 8px 4px;
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--color-on-surface-variant);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gm-account-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px 16px;
+  }
+
+  .gm-account-card .gm-avatar {
+    position: static;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 6px;
+  }
+
+  .gm-account-card .gm-avatar-initial {
+    width: 80px;
+    height: 80px;
+    font-size: 36px;
+    border-radius: 50%;
+  }
+
+  .gm-account-hi {
+    font: 400 var(--text-xl) / 28px var(--font-sans);
+    color: var(--color-on-surface);
+  }
+
+  .gm-account-manage {
+    margin-top: 8px;
+    height: 40px;
+    padding: 0 24px;
+    border: 1px solid var(--color-outline);
+    border-radius: 20px;
+    background: var(--color-surface);
+    color: var(--color-primary);
+    font: 500 var(--text-base) / 38px var(--font-sans);
+    text-decoration: none;
+  }
+
+  html.dark-mode .gm-account-manage {
+    background: var(--color-surface-container-high);
+  }
+
+  .gm-account-manage:hover {
+    background: var(--color-surface-container-low);
+    text-decoration: none;
+  }
+
+  .gm-account-actions {
+    padding: 4px 0 0;
+  }
+
+  .gm-account-actions .menu.listing {
+    background: var(--color-surface);
+    border-radius: 24px;
+    padding: 8px 0;
+  }
+
+  html.dark-mode .gm-account-actions .menu.listing {
+    background: var(--color-surface-container-high);
+  }
+
+  .gm-account-actions .menu.listing > li > a {
+    height: 48px;
+    padding: 0 24px;
+    gap: 16px;
+  }
+
+  .gm-account-actions .menu.listing > li > a.help::before {
+    content: var(--ico-help);
+  }
+
+  /* ---- app launcher (Google): grey shell r28, white favourites card r24, 3 × 112px cells ---- */
+  .popupmenu.gm-apps-menu {
+    width: 360px;
+    max-width: calc(100vw - 16px);
+    max-height: calc(100vh - 80px);
+    padding: 8px;
+    border-radius: 28px;
+    background: var(--color-surface-container-high);
+    box-shadow: var(--shadow-menu);
+  }
+
+  html.dark-mode .popupmenu.gm-apps-menu {
+    background: var(--color-surface-container);
+  }
+
+  .gm-apps-card {
+    padding: 20px 8px 12px;
+    border-radius: 24px;
+    background: var(--color-surface);
+  }
+
+  html.dark-mode .gm-apps-card {
+    background: var(--color-surface-container-high);
+  }
+
+  .gm-apps-title {
+    padding: 0 16px 12px;
+    font: 400 var(--text-xl) / 28px var(--font-sans);
+    color: var(--color-on-surface);
+  }
+
+  .gm-apps-menu .menu.listing {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+
+  .gm-apps-menu .menu.listing > li > a {
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    height: 112px;
+    padding: 12px 4px 8px;
+    border-radius: var(--radius-lg);
+    font: 400 16px / 22px var(--font-sans);
+    color: var(--color-on-surface);
+    white-space: normal;
+    text-align: center;
+    transition: background-color 120ms var(--ease-standard);
+  }
+
+  .gm-apps-menu .menu.listing > li > a::before {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    font-size: 28px;
+    line-height: 56px;
+    color: var(--color-primary);
+    background: var(--color-primary-container);
+    font-variation-settings: 'FILL' 0;
+  }
+
+  .gm-apps-menu .menu.listing > li > a.contacts::before {
+    color: #146c2e;
+    background: #c4eed0;
+  }
+
+  .gm-apps-menu .menu.listing > li > a.settings::before {
+    color: #444746;
+    background: #e3e3e3;
+  }
+
+  html.dark-mode .gm-apps-menu .menu.listing > li > a.contacts::before {
+    color: #6dd58c;
+    background: #0f5223;
+  }
+
+  html.dark-mode .gm-apps-menu .menu.listing > li > a.settings::before {
+    color: #c4c7c5;
+    background: #444746;
+  }
+
+  .gm-apps-menu .menu.listing > li > a.selected {
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+  }
+
+  .gm-apps-more {
+    padding: 8px 8px 4px;
+  }
+
+  .gm-apps-more .menu.listing > li > a::before {
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 24px;
+    color: var(--color-on-surface-variant);
+    background: var(--color-surface-container-highest);
+    font-variation-settings: 'FILL' 0;
+  }
+
+  .gm-apps-more .menu.listing > li > a.help::before {
+    content: var(--ico-help);
+  }
+
+  @media (width <= 1024px) {
+    #layout-header {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+
+    .gm-brand-name,
+    #logo {
+      display: none;
+    }
+
+    .gm-header-start {
+      min-width: 0;
+      padding-left: 8px;
+    }
+
+    .gm-search {
+      height: 44px;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .gm-search-options {
+      left: 8px;
+      width: calc(100vw - 16px);
+    }
+  }
+}
+
+/* searchform buttons (core renders a.button.search / .reset / .options without .icon) */
+@layer components {
+  .gm-search .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--color-on-surface-variant);
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  .gm-search .button:hover {
+    background: var(--color-state-hover);
+  }
+
+  .gm-search .button > .inner {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .gm-search .button::before {
+    font-family: var(--font-icons);
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .gm-search .button.search::before {
+    content: var(--ico-search);
+  }
+  .gm-search .button.reset::before {
+    content: var(--ico-close);
+  }
+  .gm-search .button.options::before {
+    content: var(--ico-filter);
+  }
+
+  .gm-search .button.options {
+    display: inline-flex;
+    margin-right: 4px;
+  }
+}
+
+@layer components {
+  .gm-icon-settings::before {
+    font-family: var(--font-icons);
+    font-size: 24px;
+    line-height: 1;
+    content: var(--ico-settings);
+  }
+}
+
+/* in-panel search bars (folders/contacts lists use wrapper="searchbar menu") */
+@layer components {
+  .searchbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 4px 16px 8px;
+    height: 40px;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-container-high);
+  }
+
+  .searchbar form {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .searchbar input[type='text'] {
+    flex: 1 1 auto;
+    min-height: 40px;
+    border: 0;
+    background: transparent;
+    padding: 0 8px 0 44px;
+    box-shadow: none;
+    font-size: var(--text-base);
+  }
+
+  .searchbar input:focus {
+    box-shadow: none;
+  }
+
+  .searchbar .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--color-on-surface-variant);
+    flex-shrink: 0;
+    text-decoration: none;
+    font-size: 0;
+  }
+
+  .searchbar .button:hover {
+    background: var(--color-state-hover);
+  }
+
+  .searchbar .button::before {
+    font-family: var(--font-icons);
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .searchbar .button.search {
+    position: absolute;
+    left: 2px;
+    top: 2px;
+  }
+
+  .searchbar .button.search::before {
+    content: var(--ico-search);
+  }
+  .searchbar .button.reset::before {
+    content: var(--ico-close);
+  }
+  .searchbar .button.options::before {
+    content: var(--ico-filter);
+  }
+  .searchbar .button.reset {
+    display: none;
+  }
+  .searchbar:focus-within .button.reset {
+    display: inline-flex;
+  }
+  .searchbar .button.options {
+    display: none;
+  }
+  .searchbar .button > .inner {
+    display: none;
+  }
+}
+
+/* phones: only hamburger, search and the account avatar fit in 64px of header */
+@layer components {
+  @media (width <= 480px) {
+    .gm-header-end > .gm-icon-btn {
+      display: none;
+    }
+
+    .gm-header-start {
+      min-width: 0;
+      padding-left: 4px;
+    }
+
+    #layout-header {
+      padding: 0 8px;
+      gap: 4px;
+    }
+  }
+}
+
+/* real avatar image dropped into a letter avatar (avatar-images.js) */
+@layer components {
+  .gm-avatar-initial > img.gm-avatar-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--color-surface);
+  }
+}

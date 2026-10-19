@@ -1,0 +1,94 @@
+/* Login: centered card (Google sign-in feel), 400px, r28, on surface-container-low. */
+@layer components {
+  .gm-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    min-height: 100%;
+  }
+
+  .gm-login-card {
+    width: min(448px, 100%);
+    padding: 40px 40px 32px;
+    border-radius: 28px;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-fab);
+    text-align: center;
+  }
+
+  html.dark-mode .gm-login-card {
+    background: var(--color-surface-container);
+  }
+
+  .gm-login-card #logo {
+    height: 48px;
+    max-width: 200px;
+    margin: 0 auto 16px;
+    display: block;
+  }
+
+  .gm-login-title {
+    font: 400 var(--text-2xl) / 36px var(--font-sans);
+    color: var(--color-on-surface);
+  }
+
+  .gm-login-subtitle {
+    margin: 4px 0 24px;
+    color: var(--color-on-surface-variant);
+  }
+
+  .gm-login-card .propform {
+    padding: 0;
+    text-align: left;
+  }
+
+  .gm-login-card table {
+    width: 100%;
+  }
+
+  .gm-login-card td.title {
+    display: block;
+    width: auto;
+    padding: 12px 0 4px;
+    font-size: var(--text-xs);
+    color: var(--color-on-surface-variant);
+  }
+
+  .gm-login-card td.input {
+    display: block;
+    padding: 0;
+  }
+
+  .gm-login-card input.form-control {
+    height: 56px;
+    padding: 0 16px;
+    border-radius: var(--radius-xs);
+    font-size: var(--text-md);
+  }
+
+  .gm-login-card .formbuttons {
+    padding: 24px 0 0;
+    justify-content: flex-end;
+  }
+
+  .gm-login-card button.mainaction,
+  .gm-login-card #rcmloginsubmit {
+    min-width: 96px;
+  }
+
+  #login-footer {
+    margin-top: 24px;
+    font-size: var(--text-xs);
+    color: var(--color-on-surface-variant);
+  }
+
+  .noscriptwarning {
+    position: fixed;
+    inset: auto 24px 24px;
+    padding: 16px;
+    background: var(--color-error-container);
+    color: var(--color-on-error-container);
+    border-radius: var(--radius-sm);
+  }
+}

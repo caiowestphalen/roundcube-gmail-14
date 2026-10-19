@@ -1,0 +1,319 @@
+/* Unlayered overrides for third-party plugin stylesheets. Plugin CSS (authres_status, tb_label,
+   snoozed_messages, contextmenu, …) is loaded AFTER the skin and is unlayered, so it beats every
+   @layer rule regardless of specificity. Anything that must win over plugin CSS lives here. */
+
+/* plugins paint Font Awesome glyphs (a font we do not load) into their settings section rows */
+html #sections-table tr > td.section::before {
+  font-family: var(--font-icons);
+}
+
+html #sections-table tr.authres_status > td.section::before {
+  content: var(--ico-verified-user);
+}
+
+/* Status glyphs replace the plugin's missing legacy raster badge. */
+html .messagelist tr > .authres_status span,
+html #sections-table tbody #rcmrowauthres_status td.section {
+  background-image: none;
+}
+
+html .menu a.filterlink::before {
+  content: var(--ico-filter-list);
+}
+
+html #sections-table tr.scheduled_sending > td.section::before {
+  content: var(--ico-schedule);
+}
+
+html #sections-table tbody #rcmrowthunderbird_labels > td.section::before,
+html #sections-table tr.thunderbird_labels > td.section::before {
+  font-family: var(--font-icons);
+  content: var(--ico-label);
+}
+
+html #sections-table tr.hotkeys > td.section::before {
+  content: var(--ico-keyboard);
+}
+
+html #settings-menu li > a.cd_preferences::before,
+html #settings-menu li > a.carddav::before {
+  font-family: var(--font-icons);
+  content: var(--ico-contacts);
+}
+
+html #settings-menu li > a.twofactor_gauthenticator::before {
+  font-family: var(--font-icons);
+  content: var(--ico-shield);
+}
+
+/* thunderbird_labels: colored label squares in the list are rendered by mail.js row layout */
+html table.messagelist td.subject span.tb_label_dots {
+  order: 4;
+}
+
+/* contextmenu plugin: reuse our popup menu look */
+html .contextmenu.popupmenu {
+  display: none;
+  position: fixed;
+  z-index: 950;
+  min-width: 200px;
+  padding: 6px 0;
+  border-radius: var(--radius-xs);
+  background: var(--color-surface-container-lowest);
+  color: var(--color-on-surface);
+  box-shadow: var(--shadow-menu);
+}
+
+html.dark-mode .contextmenu.popupmenu {
+  background: var(--color-surface-container-high);
+}
+
+/* ---- toolbar buttons injected by plugins: they ship Font-Awesome/fontello glyphs (fonts we do not
+   load → tofu boxes) and their own box rules (!important) → misaligned. Re-assert our icon button. */
+html .toolbar > a.snooze,
+html .toolbar > a.unsnooze,
+html .toolbar > a.plugin_hotkeys_button_outer,
+html .toolbar .dropbutton > a.tb-label {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  margin: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  font-size: 0 !important;
+  line-height: 1 !important;
+}
+
+html .toolbar > a.snooze::before,
+html .toolbar > a.unsnooze::before,
+html .toolbar > a.plugin_hotkeys_button_outer::before,
+html .toolbar .dropbutton > a.tb-label::before,
+html .toolbar a.button.tb-label::before {
+  font-family: var(--font-icons) !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-size: var(--spacing-icon) !important;
+  line-height: 1 !important;
+  width: 1em !important;
+  height: 1em !important;
+  display: inline-block !important;
+  margin: 0 !important;
+  float: none !important;
+}
+
+html .toolbar > a.snooze::before {
+  content: var(--ico-snooze);
+}
+
+html .toolbar > a.unsnooze::before {
+  content: var(--ico-alarm);
+}
+
+html .toolbar > a.plugin_hotkeys_button_outer::before {
+  content: var(--ico-keyboard);
+}
+
+html .toolbar .dropbutton > a.tb-label::before,
+html .toolbar a.button.tb-label::before {
+  content: var(--ico-label);
+}
+
+html .toolbar > a.snooze .inner,
+html .toolbar > a.unsnooze .inner,
+html .toolbar > a.plugin_hotkeys_button_outer .button-inner,
+html .toolbar .dropbutton > a.tb-label .inner {
+  display: block !important;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  font-size: 0 !important;
+  background: none !important;
+}
+
+/* snooze menu (plugin popup) uses the same missing font for its item glyphs */
+html .snooze-menu a::before,
+html .snooze-until::before {
+  font-family: var(--font-icons) !important;
+  font-weight: 400 !important;
+  content: var(--ico-schedule);
+}
+
+/* message-only plugin buttons never belong in the compose header */
+html body.action-compose .toolbar > a.snooze,
+html body.action-compose .toolbar > a.unsnooze,
+html body.action-compose .toolbar .dropbutton:has(> a.tb-label) {
+  display: none !important;
+}
+
+/* identity_switch: the plugin splices a dropdown before the (hidden) username span in the header */
+html .gm-header .header-title.username {
+  display: none;
+}
+html #identity_switch_menu {
+  float: none;
+  position: relative;
+  top: 0;
+  margin: 0 8px 0 0;
+  width: auto;
+  max-width: 240px;
+  height: 36px !important;
+  padding: 0 36px 0 16px !important;
+  border: 1px solid var(--color-outline-variant) !important;
+  border-radius: 18px;
+  background: transparent;
+  color: var(--color-on-surface);
+  font: 500 var(--text-sm) / 34px var(--font-sans);
+  cursor: pointer;
+  white-space: nowrap;
+}
+html #identity_switch_menu::after {
+  content: var(--ico-expand-more);
+  position: absolute;
+  right: 8px;
+  top: 0;
+  font-family: var(--font-icons);
+  font-size: 20px;
+  line-height: 34px;
+  color: var(--color-on-surface-variant);
+}
+html #identity_switch_menu:hover {
+  background-color: var(--color-surface-container-high);
+}
+html #identity_switch_dropdown {
+  position: absolute;
+  top: 44px;
+  left: 0;
+  transform: none;
+  margin: 0;
+  width: 280px;
+  max-width: none;
+  max-height: 320px;
+  padding: 8px 0;
+  border: 0;
+  border-radius: 12px;
+  background: var(--color-surface-container);
+  box-shadow: var(--shadow-menu);
+  color: var(--color-on-surface);
+  font: 400 var(--text-sm) / 20px var(--font-sans);
+  overflow: auto;
+  z-index: 300;
+}
+html #identity_switch_dropdown li {
+  width: auto;
+  height: 40px;
+  line-height: 40px;
+}
+html #identity_switch_dropdown a {
+  display: block;
+  padding: 0 44px 0 16px;
+  color: var(--color-on-surface);
+}
+html #identity_switch_dropdown li:hover {
+  background: var(--color-surface-container-highest);
+}
+html #identity_switch_dropdown .unseen {
+  top: 10px;
+  right: 12px;
+  line-height: 20px;
+  border-radius: 10px;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: var(--text-xs);
+}
+html.dark-mode #identity_switch_menu {
+  border-color: var(--color-outline-variant) !important;
+  background: transparent;
+}
+html.dark-mode #identity_switch_dropdown {
+  background: var(--color-surface-container);
+  border-color: transparent;
+  box-shadow: var(--shadow-menu);
+}
+/* Scheduled sending belongs to the compose header, with one clock and one divider. */
+html #ss-inline-schedule.ss-row {
+  border: 0;
+  border-bottom: 1px solid var(--color-outline-variant);
+  border-radius: 0;
+  background: transparent;
+  margin: 0;
+  padding: 0 8px;
+}
+
+html #ss-inline-schedule .ss-label {
+  font-weight: 400;
+}
+html #ss-inline-schedule .gm-dt-btn .ico {
+  display: none;
+}
+/* Label plugin emits toolbarmenu/inline markup; match our complete menu rows. */
+html #tb-label-menu .toolbarmenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+html #tb-label-menu .toolbarmenu > li > a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 20px 0 16px;
+  font: 400 var(--text-base) / 20px var(--font-sans);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+html #tb-label-menu .toolbarmenu > li > a::before {
+  content: var(--ico-label);
+  font-family: var(--font-icons);
+  font-size: 20px;
+  flex: 0 0 20px;
+  color: currentcolor;
+}
+
+html #tb-label-menu .toolbarmenu > li > a.label0::before {
+  content: var(--ico-close);
+}
+html #tb-label-menu .toolbarmenu > li > a:hover,
+html #tb-label-menu .toolbarmenu > li > a:focus-visible {
+  background: var(--color-state-hover);
+}
+
+/* Match the plugin's important declarations, preserving readable hues in both themes. */
+html #tb-label-menu a.label1 {
+  color: #b3261e !important;
+}
+html #tb-label-menu a.label2 {
+  color: #8c5000 !important;
+}
+html #tb-label-menu a.label3 {
+  color: #146c2e !important;
+}
+html #tb-label-menu a.label4 {
+  color: #4034b0 !important;
+}
+html #tb-label-menu a.label5 {
+  color: #8c3289 !important;
+}
+html.dark-mode #tb-label-menu a.label1 {
+  color: #ffb4ab !important;
+}
+html.dark-mode #tb-label-menu a.label2 {
+  color: #ffb95c !important;
+}
+html.dark-mode #tb-label-menu a.label3 {
+  color: #6dd58c !important;
+}
+html.dark-mode #tb-label-menu a.label4 {
+  color: #beb5ff !important;
+}
+html.dark-mode #tb-label-menu a.label5 {
+  color: #f6a5ef !important;
+}

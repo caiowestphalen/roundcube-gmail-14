@@ -1,0 +1,525 @@
+/* Settings task + plugin pages: preference forms rendered by core/plugins (Elastic markup via
+   template fallback) — titles, boxes, tables, multi-value inputs, managesieve rule rows, about. */
+@layer components {
+  /* page title + box used by plugin pages (password, 2FA, …) */
+  .boxtitle,
+  #prefs-title {
+    font: 400 var(--text-xl) / 28px var(--font-sans);
+    color: var(--color-on-surface);
+    padding: 16px 24px 0;
+  }
+
+  .box.formcontainer,
+  .box.formcontent,
+  .settingsbox {
+    padding: 0 0 16px;
+  }
+
+  #layout-content > .formcontainer,
+  #layout-content > .scroller > .formcontainer {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  .hint,
+  .form-text,
+  td.hint {
+    font-size: var(--text-xs);
+    color: var(--color-on-surface-variant);
+  }
+
+  /* checkbox followed by an inline action link ("Test") */
+  .propform td > input[type='checkbox'] + a,
+  .propform td > .custom-switch + a,
+  .form-check + a {
+    margin-left: 12px;
+    font-size: var(--text-sm);
+  }
+
+  /* no native resize grips anywhere — height comes from rows/CSS */
+  textarea,
+  textarea.form-control {
+    resize: none;
+  }
+
+  /* skin selector (Preferences › User Interface) */
+  label.skinselection {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: center;
+    gap: 4px 16px;
+    padding: 12px 16px;
+    margin: 0 0 8px;
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+
+  label.skinselection:has(input:checked) {
+    border-color: var(--color-primary);
+    background: var(--color-primary-container);
+  }
+
+  label.skinselection .skinthumbnail {
+    width: 96px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--color-outline-variant);
+    background: var(--color-surface);
+  }
+
+  label.skinselection .skinname {
+    font-weight: 500;
+    color: var(--color-on-surface);
+  }
+
+  label.skinselection .skinauthor,
+  label.skinselection .skinlicense {
+    font-size: var(--text-xs);
+    color: var(--color-on-surface-variant);
+  }
+
+  /* multi-value input list (smart-field.js) */
+  .multi-input {
+    border: 1px solid var(--color-outline);
+    border-radius: var(--radius-xs);
+    padding: 4px;
+    background: var(--color-surface);
+  }
+
+  .multi-input.focused {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 1px var(--color-primary);
+  }
+
+  .multi-input.is-invalid {
+    border-color: var(--color-error);
+  }
+
+  .multi-input .input-group {
+    margin: 0;
+    gap: 4px;
+  }
+
+  .multi-input .input-group > input {
+    border: 0;
+    min-height: 32px;
+    padding: 4px 8px;
+    box-shadow: none !important;
+  }
+
+  .multi-input .input-group > a.reset {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: var(--color-on-surface-variant);
+    min-width: 0;
+  }
+
+  .multi-input .input-group > a.reset:hover {
+    background: var(--color-state-hover);
+  }
+
+  .multi-input .invalid-feedback:empty {
+    display: none;
+  }
+
+  /* generic data tables (about › plugins, folder info) */
+  table.records-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    margin: 8px 0 16px;
+  }
+
+  table.records-table th,
+  table.records-table td {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--color-outline-variant);
+    vertical-align: top;
+  }
+
+  table.records-table th {
+    font-weight: 500;
+    color: var(--color-on-surface-variant);
+  }
+
+  /* Plugin data tables retain their columns inside a local horizontal scroller. */
+  #scheduled-messages-table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  #scheduled-messages-table tr {
+    display: table-row;
+    margin: 0;
+  }
+
+  #scheduled-messages-table th,
+  #scheduled-messages-table td {
+    display: table-cell;
+    padding: 10px 12px;
+    min-width: 80px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-outline-variant);
+  }
+
+  /* about dialog content (settings/about rendered inline) */
+  .gm-about .frame-content {
+    padding: 0;
+  }
+
+  .gm-about h2.sysname {
+    font: 500 var(--text-md) / 24px var(--font-sans);
+    color: var(--color-on-surface);
+    margin: 0 0 4px;
+  }
+
+  .gm-about h3 {
+    font: 500 var(--text-base) / 20px var(--font-sans);
+    color: var(--color-on-surface);
+    margin: 20px 0 8px;
+  }
+
+  .gm-about p {
+    margin: 0 0 8px;
+  }
+
+  .gm-about .skinitem {
+    display: block;
+  }
+
+  /* managesieve: filter-set switcher row above the filters list */
+  #layout-list > .pagenav.pagenav-list {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 4px 8px 4px 12px;
+    font-size: var(--text-sm);
+    color: var(--color-on-surface);
+    cursor: pointer;
+    border-bottom: 1px solid var(--color-outline-variant);
+  }
+
+  #layout-list > .pagenav.pagenav-list > a.expand::before {
+    content: var(--ico-expand-more);
+    transition: transform 150ms var(--ease-standard);
+  }
+
+  #layout-list > .pagenav.pagenav-list.expanded > a.expand::before {
+    transform: rotate(180deg);
+  }
+
+  #filtersetslistbox {
+    flex: 0 0 auto;
+    max-height: 200px;
+    border-bottom: 1px solid var(--color-outline-variant);
+    background: var(--color-surface-container-low);
+  }
+
+  #filtersetslistbox.hidden {
+    display: none;
+  }
+
+  /* managesieve: rule / action rows */
+  .rulerow,
+  .actionrow {
+    padding: 8px 12px;
+    margin: 0 0 8px;
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-container-lowest);
+  }
+
+  table.compact-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table.compact-table td {
+    padding: 2px 4px;
+    vertical-align: top;
+  }
+
+  .actionrow .checklist > label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+    line-height: 20px;
+  }
+
+  .actionrow .checklist > br {
+    display: none;
+  }
+
+  table.compact-table td.rowactions .flexbox,
+  table.compact-table td.rowtargets .flexbox,
+  .rulerow .flexbox,
+  .actionrow .flexbox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .rulerow .flexbox > *,
+  .actionrow .flexbox > * {
+    flex: 1 1 200px;
+    min-width: 160px;
+  }
+
+  td.rowbuttons {
+    width: 1%;
+    white-space: nowrap;
+  }
+
+  td.rowbuttons a {
+    display: inline-grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--color-on-surface-variant);
+    text-decoration: none;
+    vertical-align: middle;
+  }
+
+  td.rowbuttons a:hover {
+    background: var(--color-state-hover);
+  }
+
+  td.rowbuttons a.disabled {
+    opacity: 0.38;
+    pointer-events: none;
+  }
+
+  td.rowbuttons a > .inner {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  td.rowbuttons a::before {
+    font-family: var(--font-icons);
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .advanced-rule-options,
+  .rule-advanced {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: var(--radius-xs);
+    background: var(--color-surface-container);
+  }
+
+  /* empty-list placeholder (core writes data-label-msg for empty tables/treelists) */
+  .listing[data-label-msg]:empty::after,
+  #layout-list .scroller > .listing:empty::after {
+    display: block;
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--color-on-surface-variant);
+    font-size: var(--text-sm);
+  }
+
+  /* generic section headings inside forms (h3 used by plugins) */
+  .formcontent h3,
+  .formcontainer h3:not(.voice) {
+    font: 500 var(--text-md) / 24px var(--font-sans);
+    color: var(--color-on-surface);
+    margin: 16px 0 8px;
+  }
+}
+
+/* framed preference forms start right under the card header */
+@layer components {
+  html.iframe body.task-settings .formcontent,
+  html.iframe body.task-settings .propform:first-child {
+    padding-top: 8px;
+  }
+
+  html.iframe body.task-settings fieldset:first-of-type > legend {
+    margin-top: 0;
+  }
+}
+
+/* date + time pairs (managesieve vacation): picker button and the time field share a line */
+@layer components {
+  .propform td:has(> .gm-dt-btn) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .propform td > .gm-dt-btn {
+    min-width: 200px;
+  }
+
+  .propform td > .gm-dt-btn + input,
+  .propform td > .gm-dt-btn ~ input[type='text'] {
+    width: 120px;
+    flex: 0 0 auto;
+  }
+
+  .propform td > input[type='button'].button,
+  .propform td > button.button {
+    display: inline-block;
+    height: 32px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 16px;
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    font: 500 var(--text-sm) / 32px var(--font-sans);
+    cursor: pointer;
+    margin-top: 6px;
+  }
+}
+
+/* twofactor_gauthenticator settings page (plugin markup: table + input.button.mainaction) */
+@layer components {
+  #twofactor_gauthenticator-form .settingsbox {
+    max-width: 760px;
+  }
+
+  #twofactor_gauthenticator-form h3#prefs-title {
+    padding: 0 0 12px;
+    font: 400 var(--text-xl) / 28px var(--font-sans);
+  }
+
+  #twofactor_gauthenticator-form table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  #twofactor_gauthenticator-form td {
+    padding: 8px 0;
+    vertical-align: middle;
+  }
+
+  #twofactor_gauthenticator-form td.title {
+    width: 160px;
+    color: var(--color-on-surface-variant);
+    font-weight: 500;
+  }
+
+  #twofactor_gauthenticator-form td:not(.title):has(input) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #twofactor_gauthenticator-form td:empty {
+    width: 160px;
+  }
+
+  #twofactor_gauthenticator-form td:not(.title):not(:has(input)) {
+    color: var(--color-on-surface-variant);
+    font-size: var(--text-sm);
+    line-height: 20px;
+  }
+
+  #twofactor_gauthenticator-form td:not(.title) > input[type='password'],
+  #twofactor_gauthenticator-form td:not(.title) > input[type='text'] {
+    display: inline-block;
+    width: auto;
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 200px;
+  }
+
+  #twofactor_gauthenticator-form input[name='2FA_recovery_codes[]'] {
+    flex: 0 1 140px;
+    min-width: 120px;
+    font-family: var(--font-mono);
+  }
+
+  #twofactor_gauthenticator-form input.button.mainaction {
+    display: inline-block;
+    height: 36px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 18px;
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    font: 500 var(--text-sm) / 36px var(--font-sans);
+    cursor: pointer;
+    margin: 0 8px 8px 0;
+    max-width: 100%;
+  }
+
+  @media (width <= 600px) {
+    #twofactor_gauthenticator-form tr {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+
+    #twofactor_gauthenticator-form td,
+    #twofactor_gauthenticator-form td.title,
+    #twofactor_gauthenticator-form td:empty {
+      width: auto;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    #twofactor_gauthenticator-form input.button.mainaction[id='2FA_setup_fields'] {
+      font-size: 11px;
+      padding-inline: 8px;
+    }
+  }
+
+  #twofactor_gauthenticator-form input.button.mainaction:disabled {
+    opacity: 0.38;
+    cursor: default;
+  }
+
+  #twofactor_gauthenticator-form input.button.mainaction[onclick*='save'] {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  #twofactor_gauthenticator-form .boxcontent > p {
+    margin: 16px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #twofactor_gauthenticator-form .boxcontent > p > br {
+    display: none;
+  }
+
+  #twofactor_gauthenticator-form input[id='2FA_code_to_check'] {
+    width: 160px;
+    flex: 0 0 160px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  #twofactor_gauthenticator-form #2FA_qr_code,
+  #twofactor_gauthenticator-form canvas,
+  #twofactor_gauthenticator-form img[alt*='QR'] {
+    display: block;
+    margin: 12px 0;
+    border-radius: var(--radius-sm);
+    background: #fff;
+    padding: 8px;
+  }
+}

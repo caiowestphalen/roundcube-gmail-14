@@ -1,0 +1,10 @@
+/* Custom Tailwind variants bound to the classes our layout engine maintains on <html>
+   (same contract as Elastic so plugins keep working): dark-mode, touch, layout-{phone,small,normal,large}. */
+@custom-variant dark (&:where(html.dark-mode, html.dark-mode *));
+@custom-variant touch (&:where(html.touch, html.touch *));
+@custom-variant phone (&:where(html.layout-phone, html.layout-phone *));
+@custom-variant small (&:where(html.layout-small, html.layout-small *));
+@custom-variant normal (&:where(html.layout-normal, html.layout-normal *));
+@custom-variant large (&:where(html.layout-large, html.layout-large *));
+/* Handy compound: anything narrower than a desktop */
+@custom-variant compact (&:where(html.layout-phone, html.layout-phone *, html.layout-small, html.layout-small *));
